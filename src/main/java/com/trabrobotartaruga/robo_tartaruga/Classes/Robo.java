@@ -43,20 +43,55 @@ public class Robo {
                posicaoX--;
                 break;
             default:
-                System.out.println("Movimento inválido: " + movimento);
+                System.out.println(movimento+" é um movimento inválido!");
                 return;
         }
 
-        if(posicaoX < 0 || posicaoY < 0){
+        if(posicaoX<0){
             throw new MovimentoInvalidoException(posicaoX);
         }
-        else{
+        else if(posicaoY<0){
              throw new MovimentoInvalidoException(posicaoY);
         }
 
-
-
         System.out.println("Robô " + cor + " está agora em (" + posicaoX + ", " + posicaoY + ")");
     }
+
+    public void mover(int movimentoI) throws MovimentoInvalidoException{
+        switch(movimentoI){
+            case 1:
+                posicaoY++;
+                break;
+            case 2:
+                posicaoY--;
+                break;
+            case 3:
+                posicaoX++;
+                break;
+            case 4:
+                posicaoX--;
+                break;
+            default:
+            System.out.println("Apenas 1, 2, 3 e 4 são permitidos!");            
+        }
+
+        if(posicaoX<0){
+            throw new MovimentoInvalidoException(posicaoX);
+        }
+        else if(posicaoY<0){
+             throw new MovimentoInvalidoException(posicaoY);
+        }
+
+        System.out.println("Robô " + cor + " está agora em (" + posicaoX + ", " + posicaoY + ")");
+
+    }
+
+    public boolean verificarAlimentoEncontrado(int x, int y){
+        if(posicaoX == x && posicaoY == y){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }
-   
