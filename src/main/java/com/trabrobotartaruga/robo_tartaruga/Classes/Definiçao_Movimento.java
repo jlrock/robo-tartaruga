@@ -1,11 +1,11 @@
 package com.trabrobotartaruga.robo_tartaruga.Classes;
 
-public class Robo {
-    private String cor;
+public class Definiçao_Movimento {
     private int posicaoX;
     private int posicaoY;
+    String cor;
 
-    public Robo(String cor) {
+    public Definiçao_Movimento(String cor) {
         this.cor = cor;
         this.posicaoX = 0;
         this.posicaoY = 0;
@@ -57,42 +57,4 @@ public class Robo {
         System.out.println("Robô " + cor + " está agora em (" + posicaoX + ", " + posicaoY + ")");
     }
 
-    public void mover(int movimentoI) throws MovimentoInvalidoException{
-        switch(movimentoI){
-            case 1:
-                posicaoY++;
-                break;
-            case 2:
-                posicaoY--;
-                break;
-            case 3:
-                posicaoX++;
-                break;
-            case 4:
-                posicaoX--;
-                break;
-            default:
-                System.out.println("Apenas 1, 2, 3 e 4 são permitidos!");
-                 return;
-        }
-
-        if(posicaoX<0){
-            throw new MovimentoInvalidoException(posicaoX);
-        }
-        else if(posicaoY<0){
-             throw new MovimentoInvalidoException(posicaoY);
-        }
-
-        System.out.println("Robô " + cor + " está agora em (" + posicaoX + ", " + posicaoY + ")");
-
-    }
-
-    public boolean verificarAlimentoEncontrado(int x, int y){
-        if(posicaoX == x && posicaoY == y){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
 }
