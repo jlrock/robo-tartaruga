@@ -1,4 +1,4 @@
-package com.trabrobotartaruga.robo_tartaruga.Classes;
+package com.trabrobotartaruga.robo_tartaruga.classes;
 
 
 public class MovimentoInvalidoException extends Exception{

@@ -1,4 +1,4 @@
-package com.trabrobotartaruga.robo_tartaruga.Classes;
+package com.trabrobotartaruga.robo_tartaruga.classes;
 
 public class Robo {
     private String cor;
@@ -13,6 +13,10 @@ public class Robo {
 
     public String getCor(){
         return cor;
+    }
+
+    public void setCor(String cor){
+        this.cor=cor;
     }
 
     public int getPosicaoX() {
@@ -51,11 +55,21 @@ public class Robo {
                 return;
         }
 
-        if(posicaoX<0 || posicaoX > 4){
+        if(posicaoX<0){
+            posicaoX = 0;
             throw new MovimentoInvalidoException();
         }
-        else if(posicaoY<0 || posicaoY > 4){
-             throw new MovimentoInvalidoException();
+        if(posicaoX>3){
+            posicaoX=3;
+            throw new MovimentoInvalidoException();
+        }
+        if(posicaoY<0){
+            posicaoY=0;
+            throw new MovimentoInvalidoException();
+        }
+        if(posicaoY>3){
+            posicaoY = 3;
+            throw new MovimentoInvalidoException();
         }
 
         System.out.println("Robô " + cor + " está agora em (" + posicaoX + ", " + posicaoY + ")");
@@ -80,11 +94,21 @@ public class Robo {
                  return;
         }
 
-        if(posicaoX<0 || posicaoX>4){
+        if(posicaoX<0){
+            posicaoX = 0;
             throw new MovimentoInvalidoException();
         }
-        else if(posicaoY<0 || posicaoY >4){
-             throw new MovimentoInvalidoException();
+        if(posicaoX>3){
+            posicaoX=3;
+            throw new MovimentoInvalidoException();
+        }
+        if(posicaoY<0){
+            posicaoY=0;
+            throw new MovimentoInvalidoException();
+        }
+        if(posicaoY>3){
+            posicaoY = 3;
+            throw new MovimentoInvalidoException();
         }
 
         System.out.println("Robô " + cor + " está agora em (" + posicaoX + ", " + posicaoY + ")");
