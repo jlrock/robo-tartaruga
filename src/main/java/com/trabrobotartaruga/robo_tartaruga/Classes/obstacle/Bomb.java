@@ -14,7 +14,7 @@ public class Bomb extends Obstacle {
         for (Object object : map.getPositions().get(posY).get(posX).getObjects()) {
             if (object instanceof Bot bot) {
                 map.getPositions().get(posY).get(posX).getObjects().remove(bot);
-                System.out.println("O robô " + bot.getCor() + " explodiu.");
+                System.out.println("O robô " + bot.getColor() + " explodiu.");
             }
         }
     }

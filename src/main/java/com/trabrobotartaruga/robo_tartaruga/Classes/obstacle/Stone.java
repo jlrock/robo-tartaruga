@@ -2,7 +2,6 @@ package com.trabrobotartaruga.robo_tartaruga.classes.obstacle;
 
 import com.trabrobotartaruga.robo_tartaruga.classes.Map;
 import com.trabrobotartaruga.robo_tartaruga.classes.bot.Bot;
-import com.trabrobotartaruga.robo_tartaruga.exceptions.InvalidMoveException;
 
 public class Stone extends Obstacle {
 
@@ -15,39 +14,12 @@ public class Stone extends Obstacle {
         for (Object object : map.getPositions().get(posY).get(posX).getObjects()) {
             if (object instanceof Bot bot) {
                 switch (bot.getLastMove()) {
-                    case 1 -> {
-                        try {
-                            bot.mover(2);
-                        } catch (InvalidMoveException ex) {
-                            System.out.println(ex.getMessage());
-                        }
-                    }
-
-                    case 2 -> {
-                        try {
-                            bot.mover(1);
-                        } catch (InvalidMoveException ex) {
-                            System.out.println(ex.getMessage());
-                        }
-                    }
-
-                    case 3 -> {
-                        try {
-                            bot.mover(4);
-                        } catch (InvalidMoveException ex) {
-                            System.out.println(ex.getMessage());
-                        }
-                    }
-
-                    case 4 -> {
-                        try {
-                            bot.mover(3);
-                        } catch (InvalidMoveException ex) {
-                            System.out.println(ex.getMessage());
-                        }
-                    }
+                    case 1 -> bot.move(2);
+                    case 2 -> bot.move(1);
+                    case 3 -> bot.move(4);
+                    case 4 -> bot.move(3);
                 }
-                System.out.println("O robô " + bot.getCor() + " bateu na pedra.");
+                System.out.println("O robô " + bot.getColor() + " bateu na pedra.");
             }
         }
     }

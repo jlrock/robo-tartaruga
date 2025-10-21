@@ -1,22 +1,20 @@
 package com.trabrobotartaruga.robo_tartaruga.classes.bot;
 
-import com.trabrobotartaruga.robo_tartaruga.exceptions.InvalidMoveException;
+public class Bot extends Object{
 
-public class Bot {
-
-    protected final String cor;
+    protected final String color;
     protected int posX;
     protected int posY;
     protected int lastMove;
 
-    public Bot(String cor) {
-        this.cor = cor;
+    public Bot(String color) {
+        this.color = color;
         this.posX = 0;
         this.posY = 0;
     }
 
-    public String getCor() {
-        return cor;
+    public String getColor() {
+        return color;
     }
 
     public int getPosX() {
@@ -31,13 +29,13 @@ public class Bot {
         return posY;
     }
 
-    public void setPosicaoY(int posY) {
+    public void setPosY(int posY) {
         this.posY = posY;
     }
 
-    public void mover(String movimento) throws InvalidMoveException {
+    public void move(String move) {
 
-        switch (movimento.toLowerCase()) {
+        switch (move.toLowerCase()) {
             case "up" -> {
                 posY++;
                 lastMove = 1;
@@ -55,22 +53,16 @@ public class Bot {
                 lastMove = 4;
             }
             default -> {
-                System.out.println(movimento + " é um movimento inválido!");
+                System.out.println(move + " é um movimento inválido!");
                 return;
             }
         }
 
-        if (posX < 0 || posX > 4) {
-            throw new InvalidMoveException();
-        } else if (posY < 0 || posY > 4) {
-            throw new InvalidMoveException();
-        }
-
-        System.out.println("Robô " + cor + " está agora em (" + posX + ", " + posY + ")");
+        System.out.println("Robô " + color + " está agora em (" + posX + ", " + posY + ")");
     }
 
-    public void mover(int movimentoI) throws InvalidMoveException {
-        switch (movimentoI) {
+    public void move(int i) {
+        switch (i) {
             case 1 ->
                 posY++;
             case 2 ->
@@ -85,18 +77,8 @@ public class Bot {
             }
         }
 
-        if (posX < 0 || posX > 4) {
-            throw new InvalidMoveException();
-        } else if (posY < 0 || posY > 4) {
-            throw new InvalidMoveException();
-        }
-
-        lastMove = movimentoI;
-        System.out.println("Robô " + cor + " está agora em (" + posX + ", " + posY + ")");
-    }
-
-    public boolean verificarAlimentoEncontrado(int x, int y) {
-        return posX == x && posY == y;
+        lastMove = i;
+        System.out.println("Robô " + color + " está agora em (" + posX + ", " + posY + ")");
     }
 
     public int getLastMove() {

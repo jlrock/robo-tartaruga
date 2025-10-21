@@ -6,12 +6,19 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class Position {
 
     protected int posX;
-    protected int posy;
-    protected List<Object> objects = new CopyOnWriteArrayList<>();
+    protected int posY;
+    protected List<Object> objects;
 
-    public Position(int posX, int posy) {
+    public Position(int posX, int posY,  List<Object> objects) {
         this.posX = posX;
-        this.posy = posy;
+        this.posY = posY;
+        this.objects = objects;
+    }
+    
+    public Position(int posX, int posY) {
+        this.posX = posX;
+        this.posY = posY;
+        this.objects = new CopyOnWriteArrayList<>();
     }
 
     public List<Object> getObjects() {
