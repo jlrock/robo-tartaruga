@@ -10,6 +10,7 @@ public class Map {
     private final int y; 
     private List<List<Position>> positions;
     private List<Bot> bots;
+    private boolean foodFound;
 
     public Map(int x, int y, List<Bot> bots) {
         this.x = x;
@@ -27,6 +28,7 @@ public class Map {
         for (Bot bot : bots) {
             this.positions.get(0).get(0).getObjects().add(bot);
         }
+        foodFound = false;
     }
 
     public List<List<Position>> getPositions() {
@@ -52,9 +54,11 @@ public class Map {
                 if(!positionCell.getObjects().isEmpty()) {
                     for (Object object : positionCell.getObjects()) {
                         if(object instanceof Bot bot) {
+                            
                             if(bot.getPosX() != positionCell.getPosX() && bot.getPosY() != positionCell.getPosY()) {
                                 positions.get(bot.getPosY()).get(bot.getPosX()).getObjects().add(bot);
                                 positionCell.getObjects().remove(bot);
+                                bots.add(bot);
                             }
                         }
                     }
