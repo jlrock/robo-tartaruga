@@ -7,7 +7,7 @@ public class InvalidMoveException extends Exception {
         return "O movimento é inválido pois está em uma posição fora da matriz!";
     }
 
-    public void mensagemDeErro() {
+    public void error() {
         System.out.println("O movimento é inválido pois está em uma posição fora da matriz!");
     }
 }

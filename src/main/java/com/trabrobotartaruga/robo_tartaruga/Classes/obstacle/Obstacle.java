@@ -1,6 +1,7 @@
 package com.trabrobotartaruga.robo_tartaruga.classes.obstacle;
 
 import com.trabrobotartaruga.robo_tartaruga.classes.Map;
+import com.trabrobotartaruga.robo_tartaruga.exceptions.InvalidMoveException;
 
 public abstract class Obstacle {
     protected final int id;
@@ -13,7 +14,7 @@ public abstract class Obstacle {
         this.posY = posY;
     }
     
-    public abstract void hit(Map map); 
+    public abstract void hit(Map map) throws InvalidMoveException; 
 
     public int getId() {
         return id;

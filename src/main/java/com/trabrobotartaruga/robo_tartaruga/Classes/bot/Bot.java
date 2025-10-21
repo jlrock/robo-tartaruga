@@ -1,6 +1,8 @@
 package com.trabrobotartaruga.robo_tartaruga.classes.bot;
 
-public class Bot extends Object{
+import com.trabrobotartaruga.robo_tartaruga.exceptions.InvalidMoveException;
+
+public class Bot {
 
     protected final String color;
     protected int posX;
@@ -33,7 +35,7 @@ public class Bot extends Object{
         this.posY = posY;
     }
 
-    public void move(String move) {
+    public void move(String move) throws InvalidMoveException {
 
         switch (move.toLowerCase()) {
             case "up" -> {
@@ -61,7 +63,7 @@ public class Bot extends Object{
         System.out.println("Robô " + color + " está agora em (" + posX + ", " + posY + ")");
     }
 
-    public void move(int i) {
+    public void move(int i) throws InvalidMoveException {
         switch (i) {
             case 1 ->
                 posY++;
