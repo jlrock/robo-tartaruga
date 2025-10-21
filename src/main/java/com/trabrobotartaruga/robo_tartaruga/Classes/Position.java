@@ -1,4 +1,4 @@
-package com.trabrobotartaruga.robo_tartaruga.classes;
+package com.trabrobotartaruga.robo_tartaruga.Classes;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;

@@ -5,17 +5,35 @@ import java.util.Scanner;
 import com.trabrobotartaruga.robo_tartaruga.classes.bot.Bot;
 import com.trabrobotartaruga.robo_tartaruga.exceptions.InvalidMoveException;
 
-public class MainR1 {
+public class Main1R {
     public static void main(String argrs[]){
         Scanner sc = new Scanner(System.in);
         System.out.println("Digite uma cor para o robô:");
         String cor = sc.nextLine();
-        Bot robo = new Bot(cor);
+        Map map = new Map(4, 4);
+        Bot robo = new Bot(cor, map);
+
         System.out.println("Digite as coordenadas do alimento:");
-        System.out.print("X: ");
+        System.out.println("X (De 0 a 3): ");
         int x = sc.nextInt();
-        System.out.print("\nY: ");
+
+        if(x > 3 || x<0){
+            while (x > 3 || x < 0) {
+                System.out.println("Digite o X novamente: ");
+                x = sc.nextInt();
+            }
+        }
+
+        System.out.println("Y (De 0 a 3): ");
         int y = sc.nextInt();
+
+        if(y > 3 || y<0){
+            while (y > 3 || y < 0) {
+                System.out.println("Digite o Y novamente: ");
+                y = sc.nextInt();
+            }
+        }
+
         sc.nextLine();
         
         while (robo.verificarAlimentoEncontrado(x, y) == false) {
