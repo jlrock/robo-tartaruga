@@ -11,6 +11,10 @@ public class Robo {
         this.posicaoY = 0;
     }
 
+    public String getCor(){
+        return cor;
+    }
+
     public int getPosicaoX() {
         return posicaoX;
     }
@@ -47,11 +51,11 @@ public class Robo {
                 return;
         }
 
-        if(posicaoX<0){
-            throw new MovimentoInvalidoException(posicaoX);
+        if(posicaoX<0 || posicaoX > 4){
+            throw new MovimentoInvalidoException();
         }
-        else if(posicaoY<0){
-             throw new MovimentoInvalidoException(posicaoY);
+        else if(posicaoY<0 || posicaoY > 4){
+             throw new MovimentoInvalidoException();
         }
 
         System.out.println("Robô " + cor + " está agora em (" + posicaoX + ", " + posicaoY + ")");
@@ -76,11 +80,11 @@ public class Robo {
                  return;
         }
 
-        if(posicaoX<0){
-            throw new MovimentoInvalidoException(posicaoX);
+        if(posicaoX<0 || posicaoX>4){
+            throw new MovimentoInvalidoException();
         }
-        else if(posicaoY<0){
-             throw new MovimentoInvalidoException(posicaoY);
+        else if(posicaoY<0 || posicaoY >4){
+             throw new MovimentoInvalidoException();
         }
 
         System.out.println("Robô " + cor + " está agora em (" + posicaoX + ", " + posicaoY + ")");
