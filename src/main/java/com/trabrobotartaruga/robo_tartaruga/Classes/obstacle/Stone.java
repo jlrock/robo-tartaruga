@@ -46,8 +46,8 @@ public class Stone extends Obstacle {
                             System.out.println(ex.getMessage());
                         }
                     }
-
                 }
+                System.out.println("O robô " + bot.getCor() + " bateu na pedra.");
             }
         }
     }

@@ -8,11 +8,13 @@ public class Bomb extends Obstacle {
     public Bomb(int id, int posX, int posY) {
         super(id, posX, posY);
     }
-    
+
     @Override
     public void hit(Map map) {
         for (Object object : map.getPositions().get(posY).get(posX).getObjects()) {
             if (object instanceof Bot bot) {
+                map.getPositions().get(posY).get(posX).getObjects().remove(bot);
+                System.out.println("O robô " + bot.getCor() + " explodiu.");
             }
         }
     }
