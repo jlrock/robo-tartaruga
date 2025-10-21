@@ -1,6 +1,5 @@
 package com.trabrobotartaruga.robo_tartaruga.classes.bot;
 
-import com.trabrobotartaruga.robo_tartaruga.classes.Map;
 import com.trabrobotartaruga.robo_tartaruga.exceptions.InvalidMoveException;
 
 public class Bot {
@@ -10,7 +9,7 @@ public class Bot {
     protected int posY;
     protected int lastMove;
 
-    public Bot(String cor, Map map) {
+    public Bot(String cor) {
         this.cor = cor;
         this.posX = 0;
         this.posY = 0;

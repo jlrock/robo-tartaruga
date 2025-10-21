@@ -10,8 +10,7 @@ public class Main1R {
         Scanner sc = new Scanner(System.in);
         System.out.println("Digite uma cor para o robô:");
         String cor = sc.nextLine();
-        Map map = new Map(4, 4);
-        Bot robo = new Bot(cor, map);
+        Bot robo = new Bot(cor);
 
         System.out.println("Digite as coordenadas do alimento:");
         System.out.println("X (De 0 a 3): ");

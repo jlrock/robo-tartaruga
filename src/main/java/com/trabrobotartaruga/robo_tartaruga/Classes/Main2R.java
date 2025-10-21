@@ -9,12 +9,11 @@ public class Main2R {
         Scanner sc = new Scanner(System.in);
         System.out.println("Digite uma cor para o 1º robô:");
         String cor1 = sc.nextLine();
-        Map map = new Map(4, 4);
-        Bot robo1 = new Bot(cor1, map);
+        Bot robo1 = new Bot(cor1);
         
         System.out.println("Digite outra cor para o 2º robô:");
         String cor2 = sc.nextLine();
-        Bot robo2 = new Bot(cor2, map);
+        Bot robo2 = new Bot(cor2);
 
         System.out.println("Digite as coordenadas do alimento:");
         System.out.println("X (De 0 a 3): ");
