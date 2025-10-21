@@ -1,5 +1,6 @@
 package com.trabrobotartaruga.robo_tartaruga.classes.bot;
 
+import com.trabrobotartaruga.robo_tartaruga.classes.Map;
 import com.trabrobotartaruga.robo_tartaruga.exceptions.InvalidMoveException;
 
 public class Bot {
@@ -8,11 +9,15 @@ public class Bot {
     protected int posX;
     protected int posY;
     protected int lastMove;
+    protected final int mapX;
+    protected final int mapY;
 
-    public Bot(String color) {
+    public Bot(String color, Map map) {
         this.color = color;
         this.posX = 0;
         this.posY = 0;
+        this.mapX = map.getX();
+        this.mapY = map.getY();
     }
 
     public String getColor() {
@@ -36,31 +41,21 @@ public class Bot {
     }
 
     public void move(String move) throws InvalidMoveException {
-
-        switch (move.toLowerCase()) {
-            case "up" -> {
-                posY++;
-                lastMove = 1;
+        if(posX >= 0 && posX <= mapX && posY >= 0 && posY <= mapY) {
+            switch (move.toLowerCase()) {
+                case "up" -> {if(posY < mapY) {moveUp();}}
+                case "down" -> {if(posX > 0) { moveDown();}}
+                case "right" -> {if(posX < mapX) {moveRight();}}
+                case "left" -> {if(posX > 0) {moveLeft();}}
+                default -> {
+                    System.out.println(move + " é um movimento inválido!");
+                    return;
+                }
             }
-            case "down" -> {
-                posY--;
-                lastMove = 2;
-            }
-            case "right" -> {
-                posX++;
-                lastMove = 3;
-            }
-            case "left" -> {
-                posX--;
-                lastMove = 4;
-            }
-            default -> {
-                System.out.println(move + " é um movimento inválido!");
-                return;
-            }
+            System.out.println("Robô " + color + " está agora em (" + posX + ", " + posY + ")");
+        } else {
+            throw new InvalidMoveException();
         }
-
-        System.out.println("Robô " + color + " está agora em (" + posX + ", " + posY + ")");
     }
 
     public void move(int i) throws InvalidMoveException {
@@ -81,6 +76,23 @@ public class Bot {
 
         lastMove = i;
         System.out.println("Robô " + color + " está agora em (" + posX + ", " + posY + ")");
+    }
+    
+    private void moveUp() {
+        posY++;
+        lastMove = 1;
+    }
+    private void moveDown() {
+        posY--;
+        lastMove = 2;
+    }
+    private void moveLeft() {
+        posX--;
+        lastMove = 4;
+    }
+    private void moveRight() {
+        posX++;
+        lastMove = 3;
     }
 
     public int getLastMove() {

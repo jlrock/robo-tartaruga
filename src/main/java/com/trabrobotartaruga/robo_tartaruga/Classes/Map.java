@@ -6,17 +6,20 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import com.trabrobotartaruga.robo_tartaruga.classes.bot.Bot;
 
 public class Map {
-
+    private final int x; 
+    private final int y; 
     List<List<Position>> positions = new CopyOnWriteArrayList<>();
     List<Bot> bots;
 
     public Map(int x, int y, List<Bot> bots) {
-        for (int i = 1; i <= y; i++) {
+        this.x = x;
+        this.y = y;
+        for (int i = y-1; i <= 0; i--) {
             List<Position> linha = new CopyOnWriteArrayList<>();
-            for (int j = 1; j <= x; j++) {
-                linha.add(new Position(x, y));
+            for (int j = 0; j < x; j++) {
+                linha.add(j, new Position(x, y));
             }
-            positions.add(linha);
+            positions.add(y, linha);
         }
         this.bots = bots;
         
@@ -27,6 +30,18 @@ public class Map {
 
     public List<List<Position>> getPositions() {
         return positions;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public List<Bot> getBots() {
+        return bots;
     }
     
 }
