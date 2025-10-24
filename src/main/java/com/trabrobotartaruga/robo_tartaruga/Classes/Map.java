@@ -17,7 +17,7 @@ public class Map {
     public Map(int x, int y, List<Bot> bots, Food food) {
         this.x = x;
         this.y = y;
-        this.food= food;
+        this.food = food;
         positions = new CopyOnWriteArrayList<>();
 
         for (int i = 0; i < x; i++) {
@@ -65,12 +65,12 @@ public class Map {
         this.foodFound = foodFound;
     }
 
-    private void checkFoodFound(){
-        for(Bot bot : bots){
-            if(bot.getPosX() == food.getPosX() && bot.getPosY() == food.getPosY()){
+    private void checkFoodFound() {
+        for (Bot bot : bots) {
+            if (bot.getPosX() == food.getPosX() && bot.getPosY() == food.getPosY()) {
                 foodFound = true;
                 System.out.println("O robô " + bot.getColor() + " encontrou o alimento!");
-                break;
+                return;
             }
         }
     }

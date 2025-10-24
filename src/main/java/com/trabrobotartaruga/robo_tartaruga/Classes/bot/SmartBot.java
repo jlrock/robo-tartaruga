@@ -3,35 +3,32 @@ package com.trabrobotartaruga.robo_tartaruga.classes.bot;
 import com.trabrobotartaruga.robo_tartaruga.exceptions.InvalidMoveException;
 import java.util.Random;
 
-public class SmartBot extends Bot{
-    private final Random random;
+public class SmartBot extends Bot {
 
-    public SmartBot(String color, int mapX, int mapY){
+    public SmartBot(String color, int mapX, int mapY) {
         super(color, mapX, mapY);
-        this.random = new Random();
     }
 
-    private String gerarNovoMovimento(String ultimo){
-        String[] moves = {"up", "down", "left", "right"};
-        String novo;
+    private int newMove() {
+        int newMove;
 
-        do{
-            novo = moves[random.nextInt(moves.length)];
-        } while (novo.equals(ultimo));
+        do {
+            newMove = new Random().nextInt(4) + 1;
+        } while (newMove == lastMove);
 
-        return novo;
+        return newMove;
     }
 
     @Override
-    public void move(String motion) throws InvalidMoveException{
-        boolean sucesso = false;
+    public void move(int motion) throws InvalidMoveException {
+        boolean moved = false;
 
-        while(!sucesso){
-            try{
+        while (!moved) {
+            try {
                 super.move(motion);
-                sucesso = true;
-            } catch(InvalidMoveException e){
-                motion = gerarNovoMovimento(motion);
+                moved = true;
+            } catch (InvalidMoveException e) {
+                motion = newMove();
             }
         }
     }

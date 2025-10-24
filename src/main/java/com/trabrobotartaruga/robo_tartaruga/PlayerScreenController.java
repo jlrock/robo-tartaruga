@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import com.trabrobotartaruga.robo_tartaruga.classes.Food;
 import com.trabrobotartaruga.robo_tartaruga.classes.Map;
 import com.trabrobotartaruga.robo_tartaruga.classes.bot.Bot;
 
@@ -29,10 +30,11 @@ public class PlayerScreenController implements Initializable {
         Parent root = loader.load();
         
         List<Bot> bots = new CopyOnWriteArrayList<>();
+        Food food = new Food(2, 1);
         bots.add(new Bot("blue", 4, 4));
         bots.add(new Bot("pink", 4, 4));
         
-        Map map = new Map(4, 4, bots); // Alterar construtor nos testes
+        Map map = new Map(4, 4, bots, food);
         
         TabletopController tabletopController = loader.getController();
         tabletopController.load(map);
