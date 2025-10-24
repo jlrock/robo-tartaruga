@@ -46,7 +46,7 @@ public class Bot {
                     moveUp();
                 } else {
                     posY = mapY - 1;
-                    throw new InvalidMoveException();
+                    throw new InvalidMoveException(color, "cima");
                 }
                 break;
             }
@@ -54,7 +54,7 @@ public class Bot {
                 if (posY > 0) {
                     moveDown();
                 } else {
-                    throw new InvalidMoveException();
+                    throw new InvalidMoveException(color, "baixo");
                 }
                 break;
             }
@@ -62,7 +62,7 @@ public class Bot {
                 if (posX < mapX - 1) {
                     moveRight();
                 } else {
-                    throw new InvalidMoveException();
+                    throw new InvalidMoveException(color, "direita");
                 }
                 break;
             }
@@ -70,7 +70,7 @@ public class Bot {
                 if (posX > 0) {
                     moveLeft();
                 } else {
-                    throw new InvalidMoveException();
+                    throw new InvalidMoveException(color, "esquerda");
                 }
                 break;
             }
@@ -89,7 +89,7 @@ public class Bot {
                     moveUp();
                 } else {
                     posY = mapY - 1;
-                    throw new InvalidMoveException();
+                    throw new InvalidMoveException(color, "cima");
                 }
                 break;
             }
@@ -98,7 +98,7 @@ public class Bot {
                 if (posY > 0) {
                     moveDown();
                 } else {
-                    throw new InvalidMoveException();
+                    throw new InvalidMoveException(color, "baixo");
                 }
                 break;
             }
@@ -106,7 +106,7 @@ public class Bot {
                 if (posX > 0) {
                     moveLeft();
                 } else {
-                    throw new InvalidMoveException();
+                    throw new InvalidMoveException(color, "esquerda");
                 }
                 break;
             }
@@ -114,7 +114,7 @@ public class Bot {
                 if (posX < mapX - 1) {
                     moveRight();
                 } else {
-                    throw new InvalidMoveException();
+                    throw new InvalidMoveException(color, "direita");
                 }
                 break;
             }

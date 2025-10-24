@@ -3,12 +3,15 @@ package com.trabrobotartaruga.robo_tartaruga;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.trabrobotartaruga.robo_tartaruga.classes.Food;
 import com.trabrobotartaruga.robo_tartaruga.classes.Map;
 import com.trabrobotartaruga.robo_tartaruga.classes.bot.Bot;
+import com.trabrobotartaruga.robo_tartaruga.classes.bot.RandomBot;
+import com.trabrobotartaruga.robo_tartaruga.classes.bot.SmartBot;
 
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
@@ -31,8 +34,8 @@ public class PlayerScreenController implements Initializable {
         
         List<Bot> bots = new CopyOnWriteArrayList<>();
         Food food = new Food(2, 2);
-        bots.add(new Bot("blue", 4, 4));
-        bots.add(new Bot("pink", 4, 4));
+        bots.add(new SmartBot("blue", 4, 4));
+        bots.add(new RandomBot("pink", 4, 4));
         
         Map map = new Map(4, 4, bots, food);
         

@@ -1,18 +1,26 @@
 package com.trabrobotartaruga.robo_tartaruga;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
 import java.util.concurrent.Semaphore;
 
 import com.trabrobotartaruga.robo_tartaruga.classes.Map;
 import com.trabrobotartaruga.robo_tartaruga.classes.bot.Bot;
+import com.trabrobotartaruga.robo_tartaruga.classes.bot.RandomBot;
+import com.trabrobotartaruga.robo_tartaruga.classes.bot.SmartBot;
 import com.trabrobotartaruga.robo_tartaruga.exceptions.InvalidMoveException;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
@@ -44,11 +52,15 @@ public class TabletopController {
                 for (Bot bot : map.getBots()) {
                     pause();
                     try {
-                        bot.move(1);
-                        bot.move(4);
+                        switch (bot) {
+                            case RandomBot randomBot -> randomBot.move("");
+                            case SmartBot smartBot -> smartBot.move(0);
+                            default -> bot.move(1);
+                        }
                     } catch (InvalidMoveException e) {
-                        e.printStackTrace();
+                        System.out.println(e.toString());
                     }
+
                     Platform.runLater(() -> {
                         map.updateBots();
                         showBots();
@@ -58,7 +70,6 @@ public class TabletopController {
                     });
                 }
             }
-
         }).start();
     }
 

@@ -22,6 +22,7 @@ public class SmartBot extends Bot {
     @Override
     public void move(int motion) throws InvalidMoveException {
         boolean moved = false;
+        motion = newMove();
 
         while (!moved) {
             try {

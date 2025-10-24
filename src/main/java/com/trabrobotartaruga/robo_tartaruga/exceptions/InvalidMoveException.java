@@ -1,13 +1,15 @@
 package com.trabrobotartaruga.robo_tartaruga.exceptions;
 
 public class InvalidMoveException extends Exception {
+    private final String botColor, direction;
+    
+    public InvalidMoveException(String botColor, String direction) {
+        this.botColor = botColor;
+        this.direction = direction;
+    }
 
     @Override
     public String toString() {
-        return "O movimento é inválido pois está em uma posição fora da matriz!";
-    }
-
-    public void error() {
-        System.out.println("O movimento é inválido pois está em uma posição fora da matriz!");
+        return "O bot " + botColor + " não pode ir para " + direction;
     }
 }
