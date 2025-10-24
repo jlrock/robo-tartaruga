@@ -10,6 +10,8 @@ import com.trabrobotartaruga.robo_tartaruga.classes.Map;
 import com.trabrobotartaruga.robo_tartaruga.classes.bot.Bot;
 import com.trabrobotartaruga.robo_tartaruga.classes.bot.RandomBot;
 import com.trabrobotartaruga.robo_tartaruga.classes.bot.SmartBot;
+import com.trabrobotartaruga.robo_tartaruga.classes.obstacle.Obstacle;
+import com.trabrobotartaruga.robo_tartaruga.classes.obstacle.Stone;
 import com.trabrobotartaruga.robo_tartaruga.exceptions.InvalidMoveException;
 
 import javafx.application.Platform;
@@ -19,12 +21,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -51,18 +55,19 @@ public class TabletopController {
             while (!map.checkFoodFound()) {
                 Platform.runLater(() -> map.updateBots());
                 for (Bot bot : map.getBots()) {
-                    pause();
                     try {
+                        Thread.sleep(1500);
                         switch (bot) {
                             case RandomBot randomBot ->
                                 randomBot.move("");
                             case SmartBot smartBot ->
                                 smartBot.move(0);
                             default ->
-                                bot.move(1);
+                                move(bot);
                         }
                     } catch (InvalidMoveException e) {
                         System.out.println(e.toString());
+                    } catch (InterruptedException e) {
                     }
 
                     Platform.runLater(() -> {
@@ -81,6 +86,14 @@ public class TabletopController {
                 }
             }
         }).start();
+    }
+
+    private void move(Bot bot) throws InvalidMoveException {
+        Platform.runLater(() -> {
+            HBox playerHBox = (HBox) tabletopAnchorPane.lookup("#playerHBox");
+            TextField moveTextField = (TextField) tabletopAnchorPane.lookup("moveTextField");
+            playerHBox.setDisable(false);
+        });
     }
 
     public void resume() {
@@ -114,6 +127,15 @@ public class TabletopController {
                 gridCell.getChildren().clear();
                 if (map.getFood().getPosX() == j && map.getFood().getPosY() == i) {
                     gridCell.setBackground(Background.fill(Paint.valueOf("green")));
+                }
+                for (Obstacle obstacle : map.getObstacles()) {
+                    if (obstacle.getPosX() == j && obstacle.getPosY() == i) {
+                        if (obstacle instanceof Stone) {
+                            gridCell.setBackground(Background.fill(Paint.valueOf("gray")));
+                        } else {
+                            gridCell.setBackground(Background.fill(Paint.valueOf("red")));
+                        }
+                    }
                 }
             }
         }

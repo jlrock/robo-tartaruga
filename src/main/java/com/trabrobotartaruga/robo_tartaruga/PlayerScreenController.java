@@ -11,6 +11,9 @@ import com.trabrobotartaruga.robo_tartaruga.classes.Map;
 import com.trabrobotartaruga.robo_tartaruga.classes.bot.Bot;
 import com.trabrobotartaruga.robo_tartaruga.classes.bot.RandomBot;
 import com.trabrobotartaruga.robo_tartaruga.classes.bot.SmartBot;
+import com.trabrobotartaruga.robo_tartaruga.classes.obstacle.Bomb;
+import com.trabrobotartaruga.robo_tartaruga.classes.obstacle.Obstacle;
+import com.trabrobotartaruga.robo_tartaruga.classes.obstacle.Stone;
 
 import javafx.application.Platform;
 import javafx.event.Event;
@@ -31,6 +34,7 @@ public class PlayerScreenController implements Initializable {
 
     private List<Bot> bots = new CopyOnWriteArrayList<>();
     private Food food;
+    private List<Obstacle> obstacles = new CopyOnWriteArrayList<>();
 
     @FXML
     GridPane previewGrid;
@@ -47,7 +51,7 @@ public class PlayerScreenController implements Initializable {
         bots.add(new SmartBot("blue", 4, 4));
         bots.add(new RandomBot("pink", 4, 4));
 
-        Map map = new Map(4, 4, bots, food);
+        Map map = new Map(4, 4, bots, food, obstacles);
 
         TabletopController tabletopController = loader.getController();
         tabletopController.load(map);
@@ -69,20 +73,24 @@ public class PlayerScreenController implements Initializable {
                         Scene scene;
                         scene = new Scene(new FXMLLoader(App.class.getResource("choose_object.fxml")).load());
                         stage.initModality(Modality.APPLICATION_MODAL);
-                        
+
                         Button foodButton = (Button) scene.lookup("#foodButton");
                         Button stoneButton = (Button) scene.lookup("#stoneButton");
                         Button bombButton = (Button) scene.lookup("#bombButton");
-                        
+
                         foodButton.setOnAction(e -> {
                             food = new Food(j_temp, i_temp);
                             stage.close();
                         });
                         stoneButton.setOnAction(e -> {
+                            obstacles.add(new Stone(0, j_temp, i_temp));
+                            stage.close();
                         });
                         bombButton.setOnAction(e -> {
+                            obstacles.add(new Bomb(0, j_temp, i_temp));
+                            stage.close();
                         });
-                        
+
                         stage.setScene(scene);
                         stage.show();
                     } catch (IOException ex) {

@@ -8,7 +8,9 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="tabletopAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="745.0" prefWidth="600.0" style="-fx-background-color: #0366c3;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.trabrobotartaruga.robo_tartaruga.TabletopController">
@@ -32,52 +34,52 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </FlowPane>
-            <FlowPane fx:id="gridCell02" alignment="CENTER" prefHeight="320.0" prefWidth="602.0" GridPane.columnIndex="2" GridPane.rowIndex="3" > 
+            <FlowPane fx:id="gridCell02" alignment="CENTER" prefHeight="320.0" prefWidth="602.0" GridPane.columnIndex="2" GridPane.rowIndex="3"> 
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </FlowPane>
-            <FlowPane fx:id="gridCell01" alignment="CENTER" prefHeight="320.0" prefWidth="602.0" GridPane.columnIndex="1" GridPane.rowIndex="3" > 
+            <FlowPane fx:id="gridCell01" alignment="CENTER" prefHeight="320.0" prefWidth="602.0" GridPane.columnIndex="1" GridPane.rowIndex="3"> 
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </FlowPane>
-            <FlowPane fx:id="gridCell00" alignment="CENTER" prefHeight="320.0" prefWidth="602.0" GridPane.rowIndex="3" >
+            <FlowPane fx:id="gridCell00" alignment="CENTER" prefHeight="320.0" prefWidth="602.0" GridPane.rowIndex="3">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </FlowPane>
-            <FlowPane fx:id="gridCell20" alignment="CENTER" prefHeight="320.0" prefWidth="602.0" GridPane.rowIndex="1" >
+            <FlowPane fx:id="gridCell20" alignment="CENTER" prefHeight="320.0" prefWidth="602.0" GridPane.rowIndex="1">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </FlowPane>
-            <FlowPane fx:id="gridCell13" alignment="CENTER" prefHeight="320.0" prefWidth="602.0" GridPane.columnIndex="3" GridPane.rowIndex="2" >
+            <FlowPane fx:id="gridCell13" alignment="CENTER" prefHeight="320.0" prefWidth="602.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </FlowPane>
-            <FlowPane fx:id="gridCell12" alignment="CENTER" prefHeight="320.0" prefWidth="602.0" GridPane.columnIndex="2" GridPane.rowIndex="2" >
+            <FlowPane fx:id="gridCell12" alignment="CENTER" prefHeight="320.0" prefWidth="602.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </FlowPane>
-            <FlowPane fx:id="gridCell11" alignment="CENTER" prefHeight="320.0" prefWidth="602.0" GridPane.columnIndex="1" GridPane.rowIndex="2" >
+            <FlowPane fx:id="gridCell11" alignment="CENTER" prefHeight="320.0" prefWidth="602.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </FlowPane>
-            <FlowPane fx:id="gridCell33" alignment="CENTER" prefHeight="320.0" prefWidth="602.0" GridPane.columnIndex="3" >
+            <FlowPane fx:id="gridCell33" alignment="CENTER" prefHeight="320.0" prefWidth="602.0" GridPane.columnIndex="3">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </FlowPane>
-            <FlowPane fx:id="gridCell32" alignment="CENTER" prefHeight="320.0" prefWidth="602.0" GridPane.columnIndex="2" >
+            <FlowPane fx:id="gridCell32" alignment="CENTER" prefHeight="320.0" prefWidth="602.0" GridPane.columnIndex="2">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </FlowPane>
-            <FlowPane fx:id="gridCell31" alignment="CENTER" prefHeight="320.0" prefWidth="602.0" GridPane.columnIndex="1" >
+            <FlowPane fx:id="gridCell31" alignment="CENTER" prefHeight="320.0" prefWidth="602.0" GridPane.columnIndex="1">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
@@ -86,69 +88,70 @@
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding></FlowPane>
-            <FlowPane fx:id="gridCell10" alignment="CENTER" prefHeight="320.0" prefWidth="602.0" GridPane.rowIndex="2" >
+            <FlowPane fx:id="gridCell10" alignment="CENTER" prefHeight="320.0" prefWidth="602.0" GridPane.rowIndex="2">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </FlowPane>
-            <FlowPane fx:id="gridCell21" alignment="CENTER" prefHeight="320.0" prefWidth="602.0" GridPane.columnIndex="1" GridPane.rowIndex="1" >
+            <FlowPane fx:id="gridCell21" alignment="CENTER" prefHeight="320.0" prefWidth="602.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </FlowPane>
-            <FlowPane fx:id="gridCell22" alignment="CENTER" prefHeight="320.0" prefWidth="602.0" GridPane.columnIndex="2" GridPane.rowIndex="1" >
+            <FlowPane fx:id="gridCell22" alignment="CENTER" prefHeight="320.0" prefWidth="602.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </FlowPane>
-            <FlowPane fx:id="gridCell23" alignment="CENTER" prefHeight="320.0" prefWidth="602.0" GridPane.columnIndex="3" GridPane.rowIndex="1" >
+            <FlowPane fx:id="gridCell23" alignment="CENTER" prefHeight="320.0" prefWidth="602.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </FlowPane>
          </children>
       </GridPane>
-      <Button layoutX="232.0" layoutY="692.0" mnemonicParsing="false" onAction="#resume" prefHeight="25.0" prefWidth="103.0" text="AVANÇAR" textFill="#0a0000">
-         <font>
-            <Font name="Arial Black" size="12.0" />
-         </font>
-      </Button>
-      <TextField fx:id="moveStringField" layoutX="20.0" layoutY="656.0" prefHeight="25.0" prefWidth="137.0" />
-      <Label layoutX="20.0" layoutY="633.0" prefHeight="23.0" prefWidth="137.0" text="Digite o sentido" textFill="#0a0000">
-         <font>
-            <Font name="Arial Black" size="15.0" />
-         </font>
-      </Label>
-      <Label layoutX="225.0" layoutY="633.0" prefHeight="23.0" prefWidth="151.0" text="Digite um número" textFill="#0a0000">
-         <font>
-            <Font name="Arial Black" size="15.0" />
-         </font>
-      </Label>
-      <TextField fx:id="moveNumberField" layoutX="225.0" layoutY="656.0" prefHeight="25.0" prefWidth="151.0" />
-      <Label layoutX="173.0" layoutY="657.0" prefHeight="23.0" prefWidth="27.0" text="ou" textFill="#0a0000">
-         <font>
-            <Font name="Arial Black" size="15.0" />
-         </font>
-      </Label>
-      <Label layoutX="477.0" layoutY="633.0" prefHeight="23.0" prefWidth="103.0" text="up = 1" textFill="#0a0000">
-         <font>
-            <Font name="Arial Black" size="15.0" />
-         </font>
-      </Label>
-      <Label layoutX="477.0" layoutY="657.0" prefHeight="23.0" prefWidth="103.0" text="down = 2" textFill="#0a0000">
-         <font>
-            <Font name="Arial Black" size="15.0" />
-         </font>
-      </Label>
-      <Label layoutX="477.0" layoutY="681.0" prefHeight="23.0" prefWidth="103.0" text="right = 3" textFill="#0a0000">
-         <font>
-            <Font name="Arial Black" size="15.0" />
-         </font>
-      </Label>
-      <Label layoutX="477.0" layoutY="704.0" prefHeight="23.0" prefWidth="103.0" text="left - 4" textFill="#0a0000">
-         <font>
-            <Font name="Arial Black" size="15.0" />
-         </font>
-      </Label>
+      <HBox fx:id="playerHBox" alignment="CENTER" disable="true" layoutY="601.0" prefHeight="144.0" prefWidth="600.0" spacing="40.0">
+         <children>
+            <VBox alignment="CENTER" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" spacing="15.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="23.0" prefWidth="400.0" text="Digite um número ou direção" textFill="#0a0000">
+                     <font>
+                        <Font name="Arial Black" size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="moveTextField" prefHeight="25.0" prefWidth="151.0" />
+                  <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#resume" prefHeight="25.0" prefWidth="103.0" text="AVANÇAR" textFill="#0a0000">
+                     <font>
+                        <Font name="Arial Black" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="144.0" prefWidth="120.0" spacing="5.0">
+               <children>
+                  <Label prefHeight="23.0" prefWidth="103.0" text="up = 1" textFill="#0a0000">
+                     <font>
+                        <Font name="Arial Black" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="23.0" prefWidth="103.0" text="down = 2" textFill="#0a0000">
+                     <font>
+                        <Font name="Arial Black" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="23.0" prefWidth="103.0" text="left = 3" textFill="#0a0000">
+                     <font>
+                        <Font name="Arial Black" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="23.0" prefWidth="103.0" text="right = 4" textFill="#0a0000">
+                     <font>
+                        <Font name="Arial Black" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

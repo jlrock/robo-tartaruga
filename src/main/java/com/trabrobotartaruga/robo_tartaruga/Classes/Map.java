@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.trabrobotartaruga.robo_tartaruga.classes.bot.Bot;
+import com.trabrobotartaruga.robo_tartaruga.classes.obstacle.Obstacle;
 
 public class Map {
 
@@ -13,11 +14,13 @@ public class Map {
     private final List<Bot> bots;
     private final Food food;
     private boolean foodFound;
+    private List<Obstacle> obstacles;
 
-    public Map(int x, int y, List<Bot> bots, Food food) {
+    public Map(int x, int y, List<Bot> bots, Food food, List<Obstacle> obstacles) {
         this.x = x;
         this.y = y;
         this.food = food;
+        this.obstacles = obstacles;
         positions = new CopyOnWriteArrayList<>();
 
         for (int i = 0; i < x; i++) {
@@ -37,12 +40,20 @@ public class Map {
         }
 
         positions.get(food.getPosX()).get(food.getPosY()).getObjects().add(food);
+        
+        for (Obstacle obstacle : obstacles) {
+            positions.get(obstacle.getPosX()).get(obstacle.getPosY()).getObjects().add(obstacle);
+        }
 
         foodFound = false;
     }
 
     public List<List<Position>> getPositions() {
         return positions;
+    }
+    
+    public List<Obstacle> getObstacles() {
+        return obstacles;
     }
 
     public int getX() {
