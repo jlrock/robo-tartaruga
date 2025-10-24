@@ -32,7 +32,7 @@ public class PlayerScreenController implements Initializable {
         bots.add(new Bot("blue", 4, 4));
         bots.add(new Bot("pink", 4, 4));
         
-        Map map = new Map(4, 4, bots);
+        Map map = new Map(4, 4, bots); // Alterar construtor nos testes
         
         TabletopController tabletopController = loader.getController();
         tabletopController.load(map);

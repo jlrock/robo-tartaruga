@@ -1,6 +1,5 @@
 package com.trabrobotartaruga.robo_tartaruga.classes.bot;
 
-import com.trabrobotartaruga.robo_tartaruga.classes.Map;
 import com.trabrobotartaruga.robo_tartaruga.exceptions.InvalidMoveException;
 import java.util.Random;
 
