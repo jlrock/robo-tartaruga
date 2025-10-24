@@ -30,7 +30,7 @@ public class PlayerScreenController implements Initializable {
         Parent root = loader.load();
         
         List<Bot> bots = new CopyOnWriteArrayList<>();
-        Food food = new Food(2, 1);
+        Food food = new Food(2, 2);
         bots.add(new Bot("blue", 4, 4));
         bots.add(new Bot("pink", 4, 4));
         

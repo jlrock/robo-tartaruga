@@ -70,7 +70,7 @@ public class Map {
             if (bot.getPosX() == food.getPosX() && bot.getPosY() == food.getPosY()) {
                 foodFound = true;
                 System.out.println("O robô " + bot.getColor() + " encontrou o alimento!");
-                break;
+                return;
             }
         }
     }

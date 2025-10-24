@@ -1,5 +1,6 @@
 package com.trabrobotartaruga.robo_tartaruga;
 
+import java.io.IOException;
 import java.util.concurrent.Semaphore;
 
 import com.trabrobotartaruga.robo_tartaruga.classes.Map;
@@ -8,10 +9,16 @@ import com.trabrobotartaruga.robo_tartaruga.exceptions.InvalidMoveException;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 
 public class TabletopController {
 
@@ -20,6 +27,8 @@ public class TabletopController {
 
     @FXML
     GridPane gameGrid;
+    @FXML
+    AnchorPane tabletopAnchorPane;
 
     public void load(@SuppressWarnings("exports") Map map) {
         this.map = map;
@@ -35,6 +44,7 @@ public class TabletopController {
                 for (Bot bot : map.getBots()) {
                     pause();
                     try {
+                        bot.move(1);
                         bot.move(4);
                     } catch (InvalidMoveException e) {
                         e.printStackTrace();
@@ -42,6 +52,9 @@ public class TabletopController {
                     Platform.runLater(() -> {
                         map.updateBots();
                         showBots();
+                        if (map.isFoodFound()) {
+                            goToFinalScreen();
+                        }
                     });
                 }
             }
@@ -58,6 +71,18 @@ public class TabletopController {
             semaphore.acquire();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
+        }
+    }
+
+    private void goToFinalScreen() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/trabrobotartaruga/robo_tartaruga/tela_final.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) ((Node) tabletopAnchorPane).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="419.0" prefWidth="602.0" style="-fx-background-color: #0366c3;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.trabrobotartaruga.robo_tartaruga.TabletopController">
+<AnchorPane fx:id="tabletopAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="419.0" prefWidth="602.0" style="-fx-background-color: #0366c3;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.trabrobotartaruga.robo_tartaruga.TabletopController">
    <children>
       <GridPane fx:id="gameGrid" alignment="TOP_CENTER" focusTraversable="true" gridLinesVisible="true" prefHeight="316.0" prefWidth="605.0" style="-fx-background-color: #F0E68C;">
          <columnConstraints>
