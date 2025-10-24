@@ -39,7 +39,7 @@ public class TabletopController {
 
     private void play() {
         new Thread(() -> {
-            while (!map.isFoodFound()) {
+            while (!map.checkFoodFound()) {
                 Platform.runLater(() -> map.updateBots());
                 for (Bot bot : map.getBots()) {
                     pause();
@@ -52,7 +52,7 @@ public class TabletopController {
                     Platform.runLater(() -> {
                         map.updateBots();
                         showBots();
-                        if (map.isFoodFound()) {
+                        if (map.checkFoodFound()) {
                             goToFinalScreen();
                         }
                     });

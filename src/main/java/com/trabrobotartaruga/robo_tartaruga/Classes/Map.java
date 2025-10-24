@@ -65,14 +65,13 @@ public class Map {
         this.foodFound = foodFound;
     }
 
-    private void checkFoodFound() {
+    public boolean checkFoodFound() {
         for (Bot bot : bots) {
             if (bot.getPosX() == food.getPosX() && bot.getPosY() == food.getPosY()) {
                 foodFound = true;
-                System.out.println("O robô " + bot.getColor() + " encontrou o alimento!");
-                return;
             }
         }
+        return foodFound;
     }
 
     public void updateBots() {
