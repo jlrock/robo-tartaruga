@@ -1,5 +1,6 @@
 package com.trabrobotartaruga.robo_tartaruga.classes.bot;
 
+import com.trabrobotartaruga.robo_tartaruga.exceptions.InvalidInputException;
 import com.trabrobotartaruga.robo_tartaruga.exceptions.InvalidMoveException;
 
 public class Bot {
@@ -39,7 +40,7 @@ public class Bot {
         this.posY = posY;
     }
 
-    public void move(String move) throws InvalidMoveException {
+    public void move(String move) throws InvalidMoveException, InvalidInputException {
         switch (move.toLowerCase()) {
             case "up" -> {
                 if (posY < mapY - 1) {
@@ -75,14 +76,13 @@ public class Bot {
                 break;
             }
             default -> {
-                System.out.println(move + " é um movimento inválido!");
-                return;
+                throw new InvalidInputException();
             }
         }
         System.out.println("Robô " + color + " está agora em (" + posX + ", " + posY + ")");
     }
 
-    public void move(int i) throws InvalidMoveException {
+    public void move(int i) throws InvalidMoveException, InvalidInputException {
         switch (i) {
             case 1 -> {
                 if (posY < mapY - 1) {
@@ -119,8 +119,7 @@ public class Bot {
                 break;
             }
             default -> {
-                System.out.println("Apenas 1, 2, 3 e 4 são permitidos!");
-                return;
+                throw new InvalidInputException();
             }
         }
         System.out.println("Robô " + color + " está agora em (" + posX + ", " + posY + ")");

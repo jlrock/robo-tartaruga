@@ -12,6 +12,7 @@ import com.trabrobotartaruga.robo_tartaruga.classes.bot.RandomBot;
 import com.trabrobotartaruga.robo_tartaruga.classes.bot.SmartBot;
 import com.trabrobotartaruga.robo_tartaruga.classes.obstacle.Obstacle;
 import com.trabrobotartaruga.robo_tartaruga.classes.obstacle.Stone;
+import com.trabrobotartaruga.robo_tartaruga.exceptions.InvalidInputException;
 import com.trabrobotartaruga.robo_tartaruga.exceptions.InvalidMoveException;
 
 import javafx.application.Platform;
@@ -62,7 +63,7 @@ public class TabletopController {
                     }
 
                     try {
-                        Thread.sleep(1500);
+                        Thread.sleep(1000);
                         switch (bot) {
                             case RandomBot randomBot ->
                                 randomBot.move("");
@@ -76,6 +77,7 @@ public class TabletopController {
                     } catch (InvalidMoveException e) {
                         System.out.println(e.toString());
                     } catch (InterruptedException e) {
+                    } catch (InvalidInputException ex) {
                     }
 
                     lastPlayedBot = bot;
@@ -97,19 +99,46 @@ public class TabletopController {
         }).start();
     }
 
-    private void move(Bot bot) throws InvalidMoveException {
-
+    private void move(Bot bot) {
+        String[] possibleInputs = {"up", "down", "left", "right", "1", "2", "3", "4"};
+        int goodInput = -1;
+        boolean moved = false;
         HBox playerHBox = (HBox) tabletopAnchorPane.lookup("#playerHBox");
         TextField moveTextField = (TextField) tabletopAnchorPane.lookup("#moveTextField");
-        playerHBox.setDisable(false);
-        pause();
+        while (!moved) {
+            playerHBox.setDisable(false);
+            pause();
 
-        try {
-            bot.move(moveTextField.getText());
-        } catch (InvalidMoveException e) {
-            playerHBox.setDisable(true);
-            throw e;
+            for (int i = 0; i < possibleInputs.length; i++) {
+                if (moveTextField.getText().equals(possibleInputs[i])) {
+                    goodInput = i;
+                }
+            }
+
+            if (goodInput != -1) {
+                try {
+                    bot.move(moveTextField.getText());
+                    moved = true;
+                } catch (InvalidMoveException e) {
+                    playerHBox.setDisable(true);
+                    e.printStackTrace();
+                    moved = false;
+                } catch (InvalidInputException ex) {
+                    try {
+                        bot.move(goodInput - 3);
+                        moved = true;
+                    } catch (InvalidMoveException | InvalidInputException e) {
+                        moved = false;
+                        e.printStackTrace();
+                    }
+                    playerHBox.setDisable(true);
+                }
+            } else {
+                new InvalidInputException().printStackTrace();
+                moved = false;
+            }
         }
+
         playerHBox.setDisable(true);
         resume();
     }

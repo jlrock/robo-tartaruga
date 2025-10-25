@@ -1,5 +1,6 @@
 package com.trabrobotartaruga.robo_tartaruga.classes.bot;
 
+import com.trabrobotartaruga.robo_tartaruga.exceptions.InvalidInputException;
 import com.trabrobotartaruga.robo_tartaruga.exceptions.InvalidMoveException;
 import java.util.Random;
 
@@ -20,7 +21,7 @@ public class SmartBot extends Bot {
     }
 
     @Override
-    public void move(int motion) throws InvalidMoveException {
+    public void move(int motion) throws InvalidMoveException, InvalidInputException {
         boolean moved = false;
         motion = newMove();
 

@@ -1,5 +1,6 @@
 package com.trabrobotartaruga.robo_tartaruga.classes.bot;
 
+import com.trabrobotartaruga.robo_tartaruga.exceptions.InvalidInputException;
 import com.trabrobotartaruga.robo_tartaruga.exceptions.InvalidMoveException;
 import java.util.Random;
 
@@ -9,13 +10,13 @@ public class RandomBot extends Bot {
         super(color, mapX, mapY);
     }
 
-    public void moveRandom() throws InvalidMoveException {
+    public void moveRandom() throws InvalidMoveException, InvalidInputException {
         int direction = new Random().nextInt(4) + 1;
         super.move(direction);
     }
 
     @Override
-    public void move(String ignored) throws InvalidMoveException {
+    public void move(String ignored) throws InvalidMoveException, InvalidInputException {
         moveRandom();
     }
 }
