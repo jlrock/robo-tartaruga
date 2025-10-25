@@ -25,7 +25,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -48,7 +53,8 @@ public class PlayerScreenController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/trabrobotartaruga/robo_tartaruga/tabuleiro.fxml"));
         Parent root = loader.load();
 
-        bots.add(new Bot("pink", 4, 4));
+        bots.add(new RandomBot("pink", 4, 4));
+        bots.add(new Bot("green", 4, 4));
 
         Map map = new Map(4, 4, bots, food, obstacles);
 
@@ -77,18 +83,37 @@ public class PlayerScreenController implements Initializable {
                         Button stoneButton = (Button) scene.lookup("#stoneButton");
                         Button bombButton = (Button) scene.lookup("#bombButton");
 
+                        BackgroundSize backgroundSize = new BackgroundSize(85, 85, false, false, false, false);
+                        Background foodBackground = new Background(new BackgroundImage(
+                                new Image(getClass()
+                                        .getResourceAsStream("/com/trabrobotartaruga/robo_tartaruga/assets/food.png")),
+                                null, null, null, backgroundSize));
+                        Background stoneBackground = new Background(new BackgroundImage(
+                                new Image(getClass()
+                                        .getResourceAsStream("/com/trabrobotartaruga/robo_tartaruga/assets/stone.png")),
+                                null, null, null, backgroundSize));
+                        Background bombBackground = new Background(new BackgroundImage(
+                                new Image(getClass()
+                                        .getResourceAsStream("/com/trabrobotartaruga/robo_tartaruga/assets/bomb.png")),
+                                null, null, null, backgroundSize));
                         foodButton.setOnAction(e -> {
                             food = new Food(j_temp, i_temp);
+                            gridButton.setBackground(foodBackground);
                             stage.close();
                         });
                         stoneButton.setOnAction(e -> {
                             obstacles.add(new Stone(0, j_temp, i_temp));
+                            gridButton.setBackground(stoneBackground);
                             stage.close();
                         });
                         bombButton.setOnAction(e -> {
                             obstacles.add(new Bomb(0, j_temp, i_temp));
+                            gridButton.setBackground(bombBackground);
                             stage.close();
                         });
+                        foodButton.setBackground(foodBackground);
+                        stoneButton.setBackground(stoneBackground);
+                        bombButton.setBackground(bombBackground);
 
                         stage.setScene(scene);
                         stage.show();

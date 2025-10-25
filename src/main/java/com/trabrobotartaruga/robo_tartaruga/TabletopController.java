@@ -3,6 +3,7 @@ package com.trabrobotartaruga.robo_tartaruga;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.concurrent.Semaphore;
 
@@ -18,20 +19,24 @@ import com.trabrobotartaruga.robo_tartaruga.exceptions.InvalidMoveException;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Effect;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
@@ -78,8 +83,8 @@ public class TabletopController {
                         }
                     } catch (InvalidMoveException e) {
                         System.out.println(e.toString());
-                    } catch (InterruptedException e) {
                     } catch (InvalidInputException ex) {
+                    } catch (InterruptedException e) {
                     }
 
                     lastPlayedBot = bot;
@@ -192,14 +197,17 @@ public class TabletopController {
                 FlowPane gridCell = (FlowPane) gameGrid.lookup("#gridCell" + i + "" + j);
                 gridCell.getChildren().clear();
                 if (map.getFood().getPosX() == j && map.getFood().getPosY() == i) {
-                    gridCell.setBackground(Background.fill(Paint.valueOf("green")));
+                    ImageView foodImage = new ImageView(new Image(getClass().getResourceAsStream("/com/trabrobotartaruga/robo_tartaruga/assets/food.png"), 100, 100, false, false));
+                    gridCell.getChildren().add(foodImage);
                 }
                 for (Obstacle obstacle : map.getObstacles()) {
                     if (obstacle.getPosX() == j && obstacle.getPosY() == i) {
                         if (obstacle instanceof Stone) {
-                            gridCell.setBackground(Background.fill(Paint.valueOf("gray")));
+                            ImageView stoneImage = new ImageView(new Image(getClass().getResourceAsStream("/com/trabrobotartaruga/robo_tartaruga/assets/stone.png"), 100, 100, false, false));
+                            gridCell.getChildren().add(stoneImage);
                         } else {
-                            gridCell.setBackground(Background.fill(Paint.valueOf("red")));
+                            ImageView bombImage = new ImageView(new Image(getClass().getResourceAsStream("/com/trabrobotartaruga/robo_tartaruga/assets/bomb.png"), 100, 100, false, false));
+                            gridCell.getChildren().add(bombImage);
                         }
                     }
                 }
@@ -209,9 +217,41 @@ public class TabletopController {
             for (int j = 0; j < map.getY(); j++) {
                 if (!map.getPositions().get(i).get(j).getObjects().isEmpty()) {
                     for (Object object : map.getPositions().get(i).get(j).getObjects()) {
-                        if (object instanceof Bot actualBot) {
-                            FlowPane gridCell = (FlowPane) gameGrid.lookup("#gridCell" + i + "" + j);
-                            gridCell.getChildren().add(new Circle(20, Paint.valueOf(actualBot.getColor())));
+                        FlowPane gridCell = (FlowPane) gameGrid.lookup("#gridCell" + i + "" + j);
+                        DropShadow dropShadow = new DropShadow();
+                        dropShadow.setRadius(1.0);
+                        dropShadow.setOffsetX(10.0);
+                        dropShadow.setOffsetY(10.0);
+                        switch (object) {
+                            case RandomBot randomBot -> {
+                                ImageView image = new ImageView(new Image(
+                                        getClass().getResourceAsStream(
+                                                "/com/trabrobotartaruga/robo_tartaruga/assets/random_bot.png"),
+                                        70, 70, false, false));
+                                dropShadow.setColor(Color.valueOf(randomBot.getColor()));
+                                image.setEffect(dropShadow);
+                                gridCell.getChildren().add(image);
+                            }
+                            case SmartBot smartBot -> {
+                                ImageView image = new ImageView(new Image(
+                                        getClass().getResourceAsStream(
+                                                "/com/trabrobotartaruga/robo_tartaruga/assets/smart_bot.png"),
+                                        55, 55, false, false));
+                                dropShadow.setColor(Color.valueOf(smartBot.getColor()));
+                                image.setEffect(dropShadow);
+                                gridCell.getChildren().add(image);
+                            }
+                            case Bot bot -> {
+                                ImageView image = new ImageView(new Image(
+                                        getClass().getResourceAsStream(
+                                                "/com/trabrobotartaruga/robo_tartaruga/assets/bot.png"),
+                                        55, 55, false, false));
+                                dropShadow.setColor(Color.valueOf(bot.getColor()));
+                                image.setEffect(dropShadow);
+                                gridCell.getChildren().add(image);
+                            }
+                            default -> {
+                            }
                         }
                     }
 

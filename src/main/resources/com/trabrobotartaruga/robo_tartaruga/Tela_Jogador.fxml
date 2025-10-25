@@ -12,9 +12,9 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFFF77;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.trabrobotartaruga.robo_tartaruga.PlayerScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="698.0" style="-fx-background-color: #FFFF77;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.trabrobotartaruga.robo_tartaruga.PlayerScreenController">
    <children>
-      <Button fx:id="startButton" layoutX="473.0" layoutY="339.0" mnemonicParsing="false" onAction="#playGame" prefHeight="31.0" prefWidth="67.0" text="START" textFill="#0a0000">
+      <Button fx:id="startButton" layoutX="591.0" layoutY="445.0" mnemonicParsing="false" onAction="#playGame" prefHeight="31.0" prefWidth="67.0" text="START" textFill="#0a0000" AnchorPane.rightAnchor="40.0">
          <font>
             <Font name="Arial Black" size="12.0" />
          </font>
@@ -31,21 +31,21 @@
             </DropShadow>
          </effect>
       </Label>
-      <Pane layoutX="31.0" layoutY="74.0" prefHeight="310.0" prefWidth="310.0" AnchorPane.leftAnchor="31.0" AnchorPane.topAnchor="74.0">
+      <Pane layoutX="31.0" layoutY="74.0" prefHeight="425.0" prefWidth="408.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="259.0" AnchorPane.topAnchor="74.0">
          <children>
-            <Label layoutX="109.0" layoutY="-4.0" text="Preview">
+            <Label layoutX="176.0" layoutY="-1.0" text="Preview">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="1.0" layoutY="15.0" prefHeight="26.0" prefWidth="310.0" text="Clique nas células para adicionar objetos">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="1.0" layoutY="15.0" prefHeight="26.0" prefWidth="408.0" text="Clique nas células para adicionar objetos">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Pane layoutX="25.0" layoutY="41.0" prefHeight="260.0" prefWidth="260.0">
+            <Pane layoutX="25.0" layoutY="41.0" prefHeight="320.0" prefWidth="320.0">
                <children>
-                  <GridPane fx:id="previewGrid" alignment="CENTER" gridLinesVisible="true" prefHeight="260.0" prefWidth="260.0" style="-fx-background-color: white;">
+                  <GridPane fx:id="previewGrid" alignment="CENTER" gridLinesVisible="true" prefHeight="360.0" prefWidth="360.0" style="-fx-background-color: white;">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" prefWidth="70.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" prefWidth="70.0" />
@@ -59,30 +59,30 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button fx:id="gridButton33" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="69.0" prefWidth="67.0" GridPane.columnIndex="3" />
-                        <Button fx:id="gridButton32" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="69.0" prefWidth="67.0" GridPane.columnIndex="2" />
-                        <Button fx:id="gridButton31" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="69.0" prefWidth="67.0" GridPane.columnIndex="1" />
-                        <Button fx:id="gridButton30" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="69.0" prefWidth="67.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <Button fx:id="gridButton23" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="69.0" prefWidth="67.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                        <Button fx:id="gridButton22" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="69.0" prefWidth="67.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <Button fx:id="gridButton21" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="69.0" prefWidth="67.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Button fx:id="gridButton20" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="69.0" prefWidth="67.0" GridPane.rowIndex="1" />
-                        <Button fx:id="gridButton13" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="69.0" prefWidth="67.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                        <Button fx:id="gridButton12" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="69.0" prefWidth="67.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                        <Button fx:id="gridButton11" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="69.0" prefWidth="67.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Button fx:id="gridButton10" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="69.0" prefWidth="67.0" GridPane.rowIndex="2" />
-                        <Button fx:id="gridButton01" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="69.0" prefWidth="67.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Button fx:id="gridButton00" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="69.0" prefWidth="67.0" GridPane.rowIndex="3" />
-                        <Button fx:id="gridButton02" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="69.0" prefWidth="67.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                        <Button fx:id="gridButton03"  minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="69.0" prefWidth="67.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                        <Button fx:id="gridButton33" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="90.0" prefWidth="90.0" GridPane.columnIndex="3" />
+                        <Button fx:id="gridButton32" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="90.0" prefWidth="90.0" GridPane.columnIndex="2" />
+                        <Button fx:id="gridButton31" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="90.0" prefWidth="90.0" GridPane.columnIndex="1" />
+                        <Button fx:id="gridButton30" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="90.0" prefWidth="90.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Button fx:id="gridButton23" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="90.0" prefWidth="90.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <Button fx:id="gridButton22" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="90.0" prefWidth="90.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Button fx:id="gridButton21" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="90.0" prefWidth="90.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Button fx:id="gridButton20" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="90.0" prefWidth="90.0" GridPane.rowIndex="1" />
+                        <Button fx:id="gridButton13" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="90.0" prefWidth="90.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                        <Button fx:id="gridButton12" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="90.0" prefWidth="90.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <Button fx:id="gridButton11" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="90.0" prefWidth="90.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Button fx:id="gridButton10" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="90.0" prefWidth="90.0" GridPane.rowIndex="2" />
+                        <Button fx:id="gridButton01" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="90.0" prefWidth="90.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Button fx:id="gridButton00" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="90.0" prefWidth="90.0" GridPane.rowIndex="3" />
+                        <Button fx:id="gridButton02" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="90.0" prefWidth="90.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <Button fx:id="gridButton03" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="90.0" prefWidth="90.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                </children>
             </Pane>
          </children>
       </Pane>
-      <Pane fx:id="statsPane" layoutX="341.0" layoutY="121.0" prefHeight="123.0" prefWidth="200.0" />
-      <ComboBox fx:id="chooseBot2ComboBox" layoutX="390.0" layoutY="259.0" prefWidth="150.0" promptText="Escolher Robô" />
-      <ComboBox fx:id="chooseBot1ComboBox" layoutX="390.0" layoutY="294.0" prefWidth="150.0" promptText="Escolher Robô" />
+      <Pane fx:id="statsPane" layoutX="459.0" layoutY="227.0" prefHeight="123.0" prefWidth="200.0" AnchorPane.rightAnchor="40.0" />
+      <ComboBox fx:id="chooseBot2ComboBox" layoutX="508.0" layoutY="365.0" prefWidth="150.0" promptText="Escolher Robô" AnchorPane.rightAnchor="40.0" />
+      <ComboBox fx:id="chooseBot1ComboBox" layoutX="508.0" layoutY="400.0" prefWidth="150.0" promptText="Escolher Robô" AnchorPane.rightAnchor="40.0" />
    </children>
 </AnchorPane>

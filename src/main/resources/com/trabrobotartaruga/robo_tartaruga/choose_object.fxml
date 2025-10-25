@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="242.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="CENTER" prefHeight="242.0" prefWidth="600.0" spacing="30.0">
@@ -19,9 +18,9 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="133.0" prefWidth="600.0" spacing="20.0">
                <children>
-                  <Button fx:id="foodButton" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="Alimento" />
-                  <Button fx:id="stoneButton" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="Pedra" />
-                  <Button fx:id="bombButton" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="Bomba" />
+                  <Button fx:id="foodButton" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" />
+                  <Button fx:id="stoneButton" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" />
+                  <Button fx:id="bombButton" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" />
                </children>
             </HBox>
          </children>
