@@ -62,12 +62,13 @@ public class TabletopController {
 
     private void play() {
         new Thread(() -> {
-            while ((!map.checkFoodFound() && map.isOneWinner()) || (!map.isOneWinner() && map.getWinnerBots().size() < 2)) {
+            while (!map.isGameOver()) {
                 Platform.runLater(() -> map.updateBots());
                 for (Bot bot : map.getBots()) {
-                    if (bot.equals(lastPlayedBot) && map.getBots().size() > 1 || !bot.isActive()) {
+                    if ((bot.equals(lastPlayedBot) && map.getBots().size() > 1) || !bot.isActive()) {
                         continue;
                     }
+
                     boolean goodMove = true;
 
                     try {
@@ -83,11 +84,10 @@ public class TabletopController {
                             }
                         }
                     } catch (InvalidMoveException e) {
-                        System.out.println(e.toString());
+                        System.out.println(e);
                         bot.setInvalidMoves(bot.getInvalidMoves() + 1);
                         goodMove = false;
-                    } catch (InvalidInputException ex) {
-                    } catch (InterruptedException e) {
+                    } catch (InvalidInputException | InterruptedException e) {
                     }
 
                     lastPlayedBot = bot;
@@ -99,19 +99,37 @@ public class TabletopController {
                         map.updateBots();
                         showBots();
                     });
-                    if ((map.checkFoodFound() && map.isOneWinner()) || (!map.isOneWinner() && map.getWinnerBots().size() == 2)) {
+
+                    if (!map.getObstacles().isEmpty()) {
                         try {
-                            Thread.sleep(2000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                            Thread.sleep(500);
+                        } catch (InterruptedException ex) {
                         }
-                        Platform.runLater(() -> goToFinalScreen(map.getBots(), map.getWinnerBots()));
-                        pause();
+
+                        Platform.runLater(() -> {
+                            try {
+                                map.obstacleAction();
+                            } catch (InvalidMoveException | InvalidInputException e) {
+                                e.printStackTrace();
+                            }
+                        });
+
+                        Platform.runLater(() -> {
+                            map.updateBots();
+                            showBots();
+                        });
                     }
                 }
             }
+            try {
+                Thread.sleep(1500);
+            } catch (InterruptedException e) {
+            }
+
+            Platform.runLater(() -> goToFinalScreen(map.getBots(), map.getWinnerBots()));
         }).start();
     }
+
 
     private void move(Bot bot) {
         String[] possibleInputs = {"up", "down", "left", "right", "1", "2", "3", "4"};

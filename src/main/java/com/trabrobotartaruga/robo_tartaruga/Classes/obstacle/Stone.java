@@ -16,13 +16,18 @@ public class Stone extends Obstacle {
         for (Object object : map.getPositions().get(posY).get(posX).getObjects()) {
             if (object instanceof Bot bot) {
                 switch (bot.getLastMove()) {
-                    case 1 -> bot.move(2);
-                    case 2 -> bot.move(1);
-                    case 3 -> bot.move(4);
-                    case 4 -> bot.move(3);
+                    case 1 ->
+                        bot.move(2);
+                    case 2 ->
+                        bot.move(1);
+                    case 3 ->
+                        bot.move(4);
+                    case 4 ->
+                        bot.move(3);
                 }
                 System.out.println("O robô " + bot.getColor() + " bateu na pedra.");
             }
         }
     }
+
 }

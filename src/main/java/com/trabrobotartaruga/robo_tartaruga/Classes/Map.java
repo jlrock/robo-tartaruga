@@ -4,7 +4,10 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.trabrobotartaruga.robo_tartaruga.classes.bot.Bot;
+import com.trabrobotartaruga.robo_tartaruga.classes.obstacle.Bomb;
 import com.trabrobotartaruga.robo_tartaruga.classes.obstacle.Obstacle;
+import com.trabrobotartaruga.robo_tartaruga.exceptions.InvalidInputException;
+import com.trabrobotartaruga.robo_tartaruga.exceptions.InvalidMoveException;
 
 public class Map {
 
@@ -17,6 +20,7 @@ public class Map {
     private boolean foodFound;
     private final boolean oneWinner;
     private final List<Obstacle> obstacles;
+    private boolean allBotsDisabled;
 
     public Map(int x, int y, List<Bot> bots, Food food, List<Obstacle> obstacles, boolean oneWinner) {
         this.x = x;
@@ -26,6 +30,7 @@ public class Map {
         this.oneWinner = oneWinner;
         positions = new CopyOnWriteArrayList<>();
         winnerBots = new CopyOnWriteArrayList<>();
+        this.allBotsDisabled = false;
 
         for (int i = 0; i < x; i++) {
             positions.add(null);
@@ -102,6 +107,15 @@ public class Map {
         bot.setActive(false);
     }
 
+    private void checkAllBotsDisabled() {
+        allBotsDisabled = true;
+        for (Bot bot : bots) {
+            if (bot.isActive()) {
+                allBotsDisabled = false;
+            }
+        }
+    }
+
     public void updateBots() {
         bots.clear();
         winnerBots.clear();
@@ -121,6 +135,30 @@ public class Map {
             }
         }
         checkFoodFound();
+        checkAllBotsDisabled();
+    }
+
+    public void obstacleAction() throws InvalidMoveException, InvalidInputException {
+        for (Obstacle obstacle : obstacles) {
+            obstacle.hit(this);
+            if (obstacle instanceof Bomb bomb) {
+                if (bomb.isExploded()) {
+                    obstacles.remove(bomb);
+                }
+            }
+        }
+    }
+
+    public boolean isGameOver() {
+        if (oneWinner && foodFound) {
+            return true;
+        }
+
+        if (!oneWinner && winnerBots.size() == 2) {
+            return true;
+        }
+
+        return allBotsDisabled;
     }
 
     public List<Bot> getWinnerBots() {
@@ -129,6 +167,14 @@ public class Map {
 
     public boolean isOneWinner() {
         return oneWinner;
+    }
+
+    public boolean isAllBotsDisabled() {
+        return allBotsDisabled;
+    }
+
+    public void setAllBotsDisabled(boolean allBotsDisabled) {
+        this.allBotsDisabled = allBotsDisabled;
     }
 
 }

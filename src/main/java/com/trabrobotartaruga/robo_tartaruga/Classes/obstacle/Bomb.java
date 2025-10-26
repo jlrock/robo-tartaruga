@@ -7,17 +7,27 @@ import com.trabrobotartaruga.robo_tartaruga.exceptions.InvalidMoveException;
 
 public class Bomb extends Obstacle {
 
+    private boolean exploded;
+
     public Bomb(int id, int posX, int posY) {
         super(id, posX, posY);
+        this.exploded = false;
     }
 
     @Override
     public void hit(Map map) throws InvalidMoveException, InvalidInputException {
-        for (Object object : map.getPositions().get(posY).get(posX).getObjects()) {
-            if (object instanceof Bot bot) {
-                map.getPositions().get(posY).get(posX).getObjects().remove(bot);
-                System.out.println("O robô " + bot.getColor() + " explodiu.");
+        if (!exploded) {
+            for (Object object : map.getPositions().get(posY).get(posX).getObjects()) {
+                if (object instanceof Bot bot) {
+                    bot.setActive(false);
+                    exploded = true;
+                    System.out.println("O robô " + bot.getColor() + " explodiu.");
+                }
             }
         }
+    }
+
+    public boolean isExploded() {
+        return exploded;
     }
 }
