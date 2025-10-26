@@ -62,12 +62,13 @@ public class TabletopController {
 
     private void play() {
         new Thread(() -> {
-            while (!map.checkFoodFound()) {
+            while ((!map.checkFoodFound() && map.isOneWinner()) || (!map.isOneWinner() && map.getWinnerBots().size() < 2)) {
                 Platform.runLater(() -> map.updateBots());
                 for (Bot bot : map.getBots()) {
-                    if (bot.equals(lastPlayedBot) && map.getBots().size() > 1) {
+                    if (bot.equals(lastPlayedBot) && map.getBots().size() > 1 || !bot.isActive()) {
                         continue;
                     }
+                    boolean goodMove = true;
 
                     try {
                         Thread.sleep(1000);
@@ -83,23 +84,29 @@ public class TabletopController {
                         }
                     } catch (InvalidMoveException e) {
                         System.out.println(e.toString());
+                        bot.setInvalidMoves(bot.getInvalidMoves() + 1);
+                        goodMove = false;
                     } catch (InvalidInputException ex) {
                     } catch (InterruptedException e) {
                     }
 
                     lastPlayedBot = bot;
-
+                    bot.setRounds(bot.getRounds() + 1);
+                    if (goodMove) {
+                        bot.setValidMoves(bot.getValidMoves() + 1);
+                    }
                     Platform.runLater(() -> {
                         map.updateBots();
                         showBots();
                     });
-                    if (map.checkFoodFound()) {
+                    if ((map.checkFoodFound() && map.isOneWinner()) || (!map.isOneWinner() && map.getWinnerBots().size() == 2)) {
                         try {
                             Thread.sleep(2000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        Platform.runLater(this::goToFinalScreen);
+                        Platform.runLater(() -> goToFinalScreen(map.getBots(), map.getWinnerBots()));
+                        pause();
                     }
                 }
             }
@@ -162,15 +169,22 @@ public class TabletopController {
         }
     }
 
-    private void goToFinalScreen() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/trabrobotartaruga/robo_tartaruga/tela_final.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) ((Node) tabletopAnchorPane).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-        }
+    private void goToFinalScreen(List<Bot> bots, List<Bot> winnerBot) {
+        Platform.runLater(() -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/trabrobotartaruga/robo_tartaruga/tela_final.fxml"));
+                Parent root = loader.load();
+                Stage newStage = new Stage();
+                FinalScreenController finalScreenController = loader.getController();
+                finalScreenController.build(bots, winnerBot);
+                newStage.setTitle("Resultado Final");
+                newStage.setScene(new Scene(root));
+                Stage currentstage = (Stage) ((Node) tabletopAnchorPane).getScene().getWindow();
+                currentstage.close();
+                Platform.runLater(() -> newStage.show());
+            } catch (IOException e) {
+            }
+        });
     }
 
     private void showErrorPane(String message) {

@@ -6,8 +6,11 @@ import java.util.Random;
 
 public class SmartBot extends Bot {
 
+    private boolean lastGoodMove;
+
     public SmartBot(String color, int mapX, int mapY) {
         super(color, mapX, mapY);
+        lastGoodMove = true;
     }
 
     private int newMove() {
@@ -25,13 +28,24 @@ public class SmartBot extends Bot {
         boolean moved = false;
         motion = newMove();
 
-        while (!moved) {
+        if (lastGoodMove) {
             try {
                 super.move(motion);
-                moved = true;
             } catch (InvalidMoveException e) {
-                motion = newMove();
+                lastGoodMove = false;
+                throw e;
+            }
+        } else {
+            while (!moved) {
+                try {
+                    super.move(motion);
+                    moved = true;
+                    lastGoodMove = true;
+                } catch (InvalidMoveException e) {
+                    motion = newMove();
+                }
             }
         }
+
     }
 }

@@ -9,8 +9,12 @@ public class Bot {
     protected int posX;
     protected int posY;
     protected int lastMove;
+    protected int validMoves;
+    protected int invalidMoves;
+    protected int rounds;
     protected final int mapX;
     protected final int mapY;
+    protected boolean active;
 
     public Bot(String color, int mapX, int mapY) {
         this.color = color;
@@ -18,6 +22,10 @@ public class Bot {
         this.posY = 0;
         this.mapX = mapX;
         this.mapY = mapY;
+        this.validMoves = 0;
+        this.invalidMoves = 0; 
+        this.rounds = 0;
+        this.active = true;
     }
 
     public String getColor() {
@@ -147,5 +155,37 @@ public class Bot {
 
     public int getLastMove() {
         return lastMove;
+    }
+
+    public int getValidMoves() {
+        return validMoves;
+    }
+
+    public void setValidMoves(int validMoves) {
+        this.validMoves = validMoves;
+    }
+
+    public int getInvalidMoves() {
+        return invalidMoves;
+    }
+
+    public void setInvalidMoves(int invalidMoves) {
+        this.invalidMoves = invalidMoves;
+    }
+
+    public int getRounds() {
+        return rounds;
+    }
+
+    public void setRounds(int rounds) {
+        this.rounds = rounds;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

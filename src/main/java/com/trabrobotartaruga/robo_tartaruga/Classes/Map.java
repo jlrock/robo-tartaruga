@@ -12,16 +12,20 @@ public class Map {
     private final int y;
     private final List<List<Position>> positions;
     private final List<Bot> bots;
+    private final List<Bot> winnerBots;
     private final Food food;
     private boolean foodFound;
-    private List<Obstacle> obstacles;
+    private final boolean oneWinner;
+    private final List<Obstacle> obstacles;
 
-    public Map(int x, int y, List<Bot> bots, Food food, List<Obstacle> obstacles) {
+    public Map(int x, int y, List<Bot> bots, Food food, List<Obstacle> obstacles, boolean oneWinner) {
         this.x = x;
         this.y = y;
         this.food = food;
         this.obstacles = obstacles;
+        this.oneWinner = oneWinner;
         positions = new CopyOnWriteArrayList<>();
+        winnerBots = new CopyOnWriteArrayList<>();
 
         for (int i = 0; i < x; i++) {
             positions.add(null);
@@ -40,7 +44,7 @@ public class Map {
         }
 
         positions.get(food.getPosX()).get(food.getPosY()).getObjects().add(food);
-        
+
         for (Obstacle obstacle : obstacles) {
             positions.get(obstacle.getPosX()).get(obstacle.getPosY()).getObjects().add(obstacle);
         }
@@ -51,7 +55,7 @@ public class Map {
     public List<List<Position>> getPositions() {
         return positions;
     }
-    
+
     public List<Obstacle> getObstacles() {
         return obstacles;
     }
@@ -81,16 +85,26 @@ public class Map {
     }
 
     public boolean checkFoodFound() {
+        winnerBots.clear();
         for (Bot bot : bots) {
             if (bot.getPosX() == food.getPosX() && bot.getPosY() == food.getPosY()) {
+                if (!winnerBots.contains(bot)) {
+                    winnerBots.add(bot);
+                    disableBot(bot);
+                }
                 foodFound = true;
             }
         }
         return foodFound;
     }
 
+    private void disableBot(Bot bot) {
+        bot.setActive(false);
+    }
+
     public void updateBots() {
         bots.clear();
+        winnerBots.clear();
         for (List<Position> positionRow : positions) {
             for (Position positionCell : positionRow) {
                 if (!positionCell.getObjects().isEmpty()) {
@@ -107,6 +121,14 @@ public class Map {
             }
         }
         checkFoodFound();
+    }
+
+    public List<Bot> getWinnerBots() {
+        return winnerBots;
+    }
+
+    public boolean isOneWinner() {
+        return oneWinner;
     }
 
 }
