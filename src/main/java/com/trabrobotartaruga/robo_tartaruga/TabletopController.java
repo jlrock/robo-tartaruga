@@ -91,9 +91,10 @@ public class TabletopController {
                     }
 
                     lastPlayedBot = bot;
-                    bot.setRounds(bot.getRounds() + 1);
+                    
+                    Platform.runLater(() -> bot.setRounds(bot.getRounds() + 1));
                     if (goodMove) {
-                        bot.setValidMoves(bot.getValidMoves() + 1);
+                        Platform.runLater(() -> bot.setValidMoves(bot.getValidMoves() + 1));
                     }
                     Platform.runLater(() -> {
                         map.updateBots();
@@ -121,15 +122,15 @@ public class TabletopController {
                     }
                 }
             }
-            try {
-                Thread.sleep(1500);
-            } catch (InterruptedException e) {
+            if (map.isGameOver()) {
+                try {
+                    Thread.sleep(1500);
+                } catch (InterruptedException e) {
+                }
+                Platform.runLater(() -> goToFinalScreen(map.getBots(), map.getWinnerBots()));
             }
-
-            Platform.runLater(() -> goToFinalScreen(map.getBots(), map.getWinnerBots()));
         }).start();
     }
-
 
     private void move(Bot bot) {
         String[] possibleInputs = {"up", "down", "left", "right", "1", "2", "3", "4"};

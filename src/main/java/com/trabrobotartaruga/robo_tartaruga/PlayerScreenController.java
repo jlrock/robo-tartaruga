@@ -24,9 +24,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -43,20 +44,73 @@ public class PlayerScreenController implements Initializable {
 
     @FXML
     GridPane previewGrid;
+    @FXML
+    AnchorPane gameModeAnchorPane;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Platform.runLater(this::buildPreviewGrid);
+        Platform.runLater(() -> {
+            for (int i = 0; i < 2; i++) {
+                ComboBox<String> chooseBotComboBox = (ComboBox) gameModeAnchorPane.lookup("#chooseBot" + (i + 1) + "ComboBox");
+                chooseBotComboBox.getItems().add("Robô normal");
+                chooseBotComboBox.getItems().add("Robô aleatório");
+                chooseBotComboBox.getItems().add("Robô inteligente");
+            }
+        });
     }
 
     public void playGame(Event event) throws IOException {
+        String botColor1 = "";
+        String botColor2 = "";
+        for (int i = 0; i < 2; i++) {
+            ComboBox<String> chooseBotComboBox = (ComboBox) gameModeAnchorPane.lookup("#chooseBot" + (i + 1) + "ComboBox");
+            ColorPicker colorBotPicker = (ColorPicker) gameModeAnchorPane.lookup("#colorBot" + (i + 1) + "Picker");
+
+            if (chooseBotComboBox.getValue() == null || colorBotPicker.getValue() == null) {
+                errorMessage("Escolha uma cor e o tipo do robô " + (i + 1) + ".");
+                return;
+            }
+
+            switch (i) {
+                case 0 ->
+                    botColor1 = colorBotPicker.getValue().toString();
+                case 1 ->
+                    botColor2 = colorBotPicker.getValue().toString();
+            }
+        }
+
+        if (botColor1.equals(botColor2)) {
+            errorMessage("Os robôs precisam ter cores diferentes.");
+            return;
+        }
+
+        if (food == null) {
+            errorMessage("Insira o alimento em alguma posição.");
+            return;
+        }
+        for (Obstacle obstacle1 : obstacles) {
+            for (Obstacle obstacle2 : obstacles) {
+                if (obstacles.indexOf(obstacle1) != obstacles.indexOf(obstacle2)) {
+                    if (obstacle1.getPosX() == obstacle2.getPosX() && obstacle1.getPosY() == obstacle2.getPosY()) {
+                        errorMessage("Não coloque 2 objetos na mesma posição. Limpe o preview e tente novamente.");
+                        return;
+                    }
+                }
+            }
+            if (obstacle1.getPosX() == food.getPosX() && obstacle1.getPosY() == food.getPosY()) {
+                errorMessage("Cada posição só pode ter 1 objeto. Limpe o preview e tente novamente.");
+                return;
+            }
+        }
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/trabrobotartaruga/robo_tartaruga/tabuleiro.fxml"));
         Parent root = loader.load();
 
         bots.add(new Bot("pink", 4, 4));
         bots.add(new SmartBot("green", 4, 4));
 
-        Map map = new Map(4, 4, bots, food, obstacles, false);
+        Map map = new Map(4, 4, bots, food, obstacles, true);
 
         TabletopController tabletopController = loader.getController();
         tabletopController.load(map);
@@ -66,60 +120,113 @@ public class PlayerScreenController implements Initializable {
         stage.show();
     }
 
+    public void clearObjects() {
+        if (!obstacles.isEmpty() || food != null) {
+            obstacles.clear();
+            food = null;
+
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
+                    Button gridButton = (Button) previewGrid.lookup("#gridButton" + i + "" + j);
+                    gridButton.setBackground(null);
+                }
+            }
+        } else {
+            errorMessage("O preview já está limpo.");
+        }
+    }
+
+    private void errorMessage(String message) {
+        try {
+            Stage stage = new Stage();
+            Scene scene;
+            scene = new Scene(new FXMLLoader(App.class.getResource("error.fxml")).load());
+            stage.initModality(Modality.APPLICATION_MODAL);
+            Label warningLabel = (Label) scene.lookup("#warningLabel");
+            warningLabel.setText(message);
+            Button okButton = (Button) scene.lookup("#okButton");
+            okButton.setOnAction(e -> {
+                stage.close();
+            });
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void buildPreviewGrid() {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 Button gridButton = (Button) previewGrid.lookup("#gridButton" + i + "" + j);
                 final int i_temp = i;
                 final int j_temp = j;
-                gridButton.setOnAction(eh -> {
-                    try {
-                        Stage stage = new Stage();
-                        Scene scene;
-                        scene = new Scene(new FXMLLoader(App.class.getResource("choose_object.fxml")).load());
-                        stage.initModality(Modality.APPLICATION_MODAL);
+                if (i == 0 && j == 0) {
+                    gridButton.setOnAction(eh -> {
+                        errorMessage("Você não pode inserir objetos na origem.");
+                    });
+                } else {
+                    gridButton.setOnAction(eh -> {
+                        try {
+                            Stage stage = new Stage();
+                            Scene scene;
+                            scene = new Scene(new FXMLLoader(App.class.getResource("choose_object.fxml")).load());
+                            stage.initModality(Modality.APPLICATION_MODAL);
 
-                        Button foodButton = (Button) scene.lookup("#foodButton");
-                        Button stoneButton = (Button) scene.lookup("#stoneButton");
-                        Button bombButton = (Button) scene.lookup("#bombButton");
+                            Button foodButton = (Button) scene.lookup("#foodButton");
+                            Button stoneButton = (Button) scene.lookup("#stoneButton");
+                            Button bombButton = (Button) scene.lookup("#bombButton");
 
-                        BackgroundSize backgroundSize = new BackgroundSize(85, 85, false, false, false, false);
-                        Background foodBackground = new Background(new BackgroundImage(
-                                new Image(getClass()
-                                        .getResourceAsStream("/com/trabrobotartaruga/robo_tartaruga/assets/food.png")),
-                                null, null, null, backgroundSize));
-                        Background stoneBackground = new Background(new BackgroundImage(
-                                new Image(getClass()
-                                        .getResourceAsStream("/com/trabrobotartaruga/robo_tartaruga/assets/stone.png")),
-                                null, null, null, backgroundSize));
-                        Background bombBackground = new Background(new BackgroundImage(
-                                new Image(getClass()
-                                        .getResourceAsStream("/com/trabrobotartaruga/robo_tartaruga/assets/bomb.png")),
-                                null, null, null, backgroundSize));
-                        foodButton.setOnAction(e -> {
-                            food = new Food(j_temp, i_temp);
-                            gridButton.setBackground(foodBackground);
-                            stage.close();
-                        });
-                        stoneButton.setOnAction(e -> {
-                            obstacles.add(new Stone(0, j_temp, i_temp));
-                            gridButton.setBackground(stoneBackground);
-                            stage.close();
-                        });
-                        bombButton.setOnAction(e -> {
-                            obstacles.add(new Bomb(0, j_temp, i_temp));
-                            gridButton.setBackground(bombBackground);
-                            stage.close();
-                        });
-                        foodButton.setBackground(foodBackground);
-                        stoneButton.setBackground(stoneBackground);
-                        bombButton.setBackground(bombBackground);
+                            BackgroundSize backgroundSize = new BackgroundSize(85, 85, false, false, false, false);
+                            Background foodBackground = new Background(new BackgroundImage(
+                                    new Image(getClass()
+                                            .getResourceAsStream("/com/trabrobotartaruga/robo_tartaruga/assets/food.png")),
+                                    null, null, null, backgroundSize));
+                            Background stoneBackground = new Background(new BackgroundImage(
+                                    new Image(getClass()
+                                            .getResourceAsStream("/com/trabrobotartaruga/robo_tartaruga/assets/stone.png")),
+                                    null, null, null, backgroundSize));
+                            Background bombBackground = new Background(new BackgroundImage(
+                                    new Image(getClass()
+                                            .getResourceAsStream("/com/trabrobotartaruga/robo_tartaruga/assets/bomb.png")),
+                                    null, null, null, backgroundSize));
+                            foodButton.setOnAction(e -> {
+                                if (food != null) {
+                                    for (int k = 0; k < 4; k++) {
+                                        for (int l = 0; l < 4; l++) {
+                                            if (k == food.getPosX() && l == food.getPosY()) {
+                                                Button lastFoodButton = (Button) previewGrid.lookup("#gridButton" + l + "" + k);
+                                                lastFoodButton.setBackground(null);
+                                            }
+                                        }
+                                    }
+                                }
+                                food = new Food(j_temp, i_temp);
+                                gridButton.setBackground(foodBackground);
+                                stage.close();
+                            });
+                            stoneButton.setOnAction(e -> {
+                                int id = obstacles.size();
+                                obstacles.add(new Stone(id, j_temp, i_temp));
+                                gridButton.setBackground(stoneBackground);
+                                stage.close();
+                            });
+                            bombButton.setOnAction(e -> {
+                                int id = obstacles.size();
+                                obstacles.add(new Bomb(id, j_temp, i_temp));
+                                gridButton.setBackground(bombBackground);
+                                stage.close();
+                            });
+                            foodButton.setBackground(foodBackground);
+                            stoneButton.setBackground(stoneBackground);
+                            bombButton.setBackground(bombBackground);
 
-                        stage.setScene(scene);
-                        stage.show();
-                    } catch (IOException ex) {
-                    }
-                });
+                            stage.setScene(scene);
+                            stage.show();
+                        } catch (IOException ex) {
+                        }
+                    });
+                }
             }
         }
     }
