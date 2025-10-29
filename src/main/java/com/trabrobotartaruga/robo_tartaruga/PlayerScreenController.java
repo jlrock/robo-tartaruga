@@ -60,6 +60,14 @@ public class PlayerScreenController implements Initializable {
             }
         });
     }
+    
+    public void goBack(Event event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/trabrobotartaruga/robo_tartaruga/tela_inicial.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
 
     public void playGame(Event event) throws IOException {
         CheckBox oneWinnerCheckBox = (CheckBox) gameModeAnchorPane.lookup("#oneWinnerCheckBox");

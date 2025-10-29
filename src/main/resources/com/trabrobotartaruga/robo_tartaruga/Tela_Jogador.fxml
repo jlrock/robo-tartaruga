@@ -146,5 +146,6 @@
             <Font size="15.0" />
          </font>
       </CheckBox>
+      <Button layoutX="25.0" layoutY="30.0" mnemonicParsing="false" onAction="#goBack" text="Voltar" />
    </children>
 </AnchorPane>

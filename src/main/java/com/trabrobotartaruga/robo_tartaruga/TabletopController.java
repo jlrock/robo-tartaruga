@@ -144,13 +144,26 @@ public class TabletopController {
                         bot.setRounds(bot.getRounds() + 1);
 
                         if(goodMove) {
+                            final String lastMove;
+                            switch (bot.getLastMove()) {
+                                case 1 ->
+                                    lastMove = "cima";
+                                case 2 ->
+                                    lastMove = "baixo";
+                                case 3 ->
+                                    lastMove = "esquerda";
+                                case 4 ->
+                                    lastMove = "direita";
+                                default ->
+                                    lastMove = "";
+                            }
                             switch (bot) {
                                 case SmartBot smartBot ->
-                                    Platform.runLater(() -> createLogLabel("Robô inteligente se moveu."));
+                                    Platform.runLater(() -> createLogLabel("Robô inteligente se moveu para " + lastMove));
                                 case RandomBot randomBot ->
-                                    Platform.runLater(() -> createLogLabel("Robô aleatório se moveu."));
+                                    Platform.runLater(() -> createLogLabel("Robô aleatório se moveu para " + lastMove));
                                 case Bot currenBot ->
-                                    Platform.runLater(() -> createLogLabel("Robô normal se moveu."));
+                                    Platform.runLater(() -> createLogLabel("Robô normal se moveu para " + lastMove));
                             }
                         }
 

@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;?import javafx.scene.shape.Polyline?&gt;&lt;Polyline fill=&quot;CHARTREUSE&quot; layoutX=&quot;261.0&quot; layoutY=&quot;168.0&quot; points=&quot;8.0, -53.0, 63.0, 0.0, -11.0, 8.0, 63.0, -46.0&quot; strokeType=&quot;INSIDE&quot; xmlns=&quot;http://javafx.com/javafx/25&quot; xmlns:fx=&quot;http://javafx.com/fxml/1&quot; /&gt;;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.trabrobotartaruga.robo_tartaruga.HomeScreenController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fffd08" height="230.0" layoutX="-4.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" width="607.0" />
       <Label layoutX="118.0" layoutY="26.0" text="ROBÔ " textAlignment="JUSTIFY" textFill="#0a0000">
@@ -79,7 +79,7 @@
             </LinearGradient>
          </fill>
       </QuadCurve>
-      <Button layoutX="235.0" layoutY="303.0" mnemonicParsing="false" text="INICIAR JOGO" textFill="#0a0000">
+      <Button layoutX="235.0" layoutY="303.0" mnemonicParsing="false" onAction="#goToPlayerScreen" text="INICIAR JOGO" textFill="#0a0000">
          <font>
             <Font name="Serif Regular" size="12.0" />
          </font>
