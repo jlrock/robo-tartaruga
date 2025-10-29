@@ -25,6 +25,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
@@ -91,7 +92,7 @@ public class TabletopController {
                     }
 
                     lastPlayedBot = bot;
-                    
+
                     Platform.runLater(() -> bot.setRounds(bot.getRounds() + 1));
                     if (goodMove) {
                         Platform.runLater(() -> bot.setValidMoves(bot.getValidMoves() + 1));
@@ -252,6 +253,8 @@ public class TabletopController {
                     for (Object object : map.getPositions().get(i).get(j).getObjects()) {
                         FlowPane gridCell = (FlowPane) gameGrid.lookup("#gridCell" + i + "" + j);
                         DropShadow dropShadow = new DropShadow();
+                        ColorAdjust monochrome = new ColorAdjust();
+                        monochrome.setSaturation(-1);
                         dropShadow.setRadius(1.0);
                         dropShadow.setOffsetX(10.0);
                         dropShadow.setOffsetY(10.0);
@@ -263,6 +266,9 @@ public class TabletopController {
                                         70, 70, false, false));
                                 dropShadow.setColor(Color.valueOf(randomBot.getColor()));
                                 image.setEffect(dropShadow);
+                                if (!randomBot.isActive()) {
+                                    image.setEffect(monochrome);
+                                }
                                 gridCell.getChildren().add(image);
                             }
                             case SmartBot smartBot -> {
@@ -272,6 +278,9 @@ public class TabletopController {
                                         55, 55, false, false));
                                 dropShadow.setColor(Color.valueOf(smartBot.getColor()));
                                 image.setEffect(dropShadow);
+                                if (!smartBot.isActive()) {
+                                    image.setEffect(monochrome);
+                                }
                                 gridCell.getChildren().add(image);
                             }
                             case Bot bot -> {
@@ -280,6 +289,9 @@ public class TabletopController {
                                                 "/com/trabrobotartaruga/robo_tartaruga/assets/bot.png"),
                                         55, 55, false, false));
                                 dropShadow.setColor(Color.valueOf(bot.getColor()));
+                                if (!bot.isActive()) {
+                                    dropShadow.setInput(monochrome);
+                                }
                                 image.setEffect(dropShadow);
                                 gridCell.getChildren().add(image);
                             }
