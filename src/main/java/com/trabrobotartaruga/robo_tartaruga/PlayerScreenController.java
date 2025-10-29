@@ -71,9 +71,11 @@ public class PlayerScreenController implements Initializable {
             ComboBox<String> chooseBotComboBox = (ComboBox) gameModeAnchorPane.lookup("#chooseBot" + (i + 1) + "ComboBox");
             ColorPicker colorBotPicker = (ColorPicker) gameModeAnchorPane.lookup("#colorBot" + (i + 1) + "Picker");
 
-            if (chooseBotComboBox.getValue() == null || colorBotPicker.getValue() == null) {
-                errorMessage("Escolha uma cor e o tipo do robô " + (i + 1) + ".");
-                return;
+            if(i == 0) {
+                if (chooseBotComboBox.getValue() == null || colorBotPicker.getValue() == null) {
+                    errorMessage("Escolha uma cor e o tipo do robô " + (i + 1) + ".");
+                    return;
+                }
             }
 
             switch (i) {
@@ -127,20 +129,18 @@ public class PlayerScreenController implements Initializable {
             }
         }
 
-        switch (botType2) {
-            case "Robô normal" -> {
-                bots.add(new Bot(botColor2, 4, 4));
+        if (botType2 != null) {
+            switch (botType2) {
+                case "Robô normal" -> {
+                    bots.add(new Bot(botColor2, 4, 4));
+                }
+                case "Robô aleatório" -> {
+                    bots.add(new RandomBot(botColor2, 4, 4));
+                }
+                case "Robô inteligente" -> {
+                    bots.add(new SmartBot(botColor2, 4, 4));
+                }
             }
-            case "Robô aleatório" -> {
-                bots.add(new RandomBot(botColor2, 4, 4));
-            }
-            case "Robô inteligente" -> {
-                bots.add(new SmartBot(botColor2, 4, 4));
-            }
-        }
-
-        if (bots.size() != 2) {
-            errorMessage("Escolha exatamente 2 robôs para iniciar.");
         }
 
         Map map = new Map(4, 4, bots, food, obstacles, oneWinnerCheckBox.isSelected());

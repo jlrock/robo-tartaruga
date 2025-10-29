@@ -10,13 +10,10 @@ public class RandomBot extends Bot {
         super(color, mapX, mapY);
     }
 
-    private void moveRandom() throws InvalidMoveException, InvalidInputException {
-        int direction = new Random().nextInt(4) + 1;
-        super.move(direction);
-    }
 
     @Override
     public void move(String ignored) throws InvalidMoveException, InvalidInputException {
-        moveRandom();
+        int direction = new Random().nextInt(4) + 1;
+        super.move(direction);
     }
 }

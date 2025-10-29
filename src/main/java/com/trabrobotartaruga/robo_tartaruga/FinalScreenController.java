@@ -26,6 +26,7 @@ public class FinalScreenController {
     GridPane rankGridPane;
 
     public void build(List<Bot> bots, List<Bot> winnerBots) {
+        int slot = 1;
         if (winnerBots.isEmpty()) {
             h1Label.setText("OOPS!");
             h1Label.setTextFill(Paint.valueOf("red"));
@@ -40,13 +41,13 @@ public class FinalScreenController {
             }
 
             for (Bot winnerBot : winnerBots) {
-                Label botType = (Label) rankGridPane.lookup("#botTypeLabel" + (winnerBots.indexOf(winnerBot) + 1));
-                VBox botColorVBox = (VBox) rankGridPane.lookup("#botColorVBox" + (winnerBots.indexOf(winnerBot) + 1));
-                Label botColor = (Label) rankGridPane.lookup("#botColorLabel" + (winnerBots.indexOf(winnerBot) + 1));
-                Label validMoves = (Label) rankGridPane.lookup("#validMovesLabel" + (winnerBots.indexOf(winnerBot) + 1));
-                Label invalidMoves = (Label) rankGridPane.lookup("#invalidMovesLabel" + (winnerBots.indexOf(winnerBot) + 1));
-                Label rounds = (Label) rankGridPane.lookup("#roundsLabel" + (winnerBots.indexOf(winnerBot) + 1));
-                Label foundFood = (Label) rankGridPane.lookup("#foundFoodLabel" + (winnerBots.indexOf(winnerBot) + 1));
+                Label botType = (Label) rankGridPane.lookup("#botTypeLabel" + (slot));
+                VBox botColorVBox = (VBox) rankGridPane.lookup("#botColorVBox" + (slot));
+                Label botColor = (Label) rankGridPane.lookup("#botColorLabel" + (slot));
+                Label validMoves = (Label) rankGridPane.lookup("#validMovesLabel" + (slot));
+                Label invalidMoves = (Label) rankGridPane.lookup("#invalidMovesLabel" + (slot));
+                Label rounds = (Label) rankGridPane.lookup("#roundsLabel" + (slot));
+                Label foundFood = (Label) rankGridPane.lookup("#foundFoodLabel" + (slot));
                 switch (winnerBot) {
                     case RandomBot randomBot ->
                         botType.setText("Aleatório");
@@ -61,10 +62,11 @@ public class FinalScreenController {
                 invalidMoves.setText(String.valueOf(winnerBot.getInvalidMoves()));
                 rounds.setText(String.valueOf(winnerBot.getRounds()));
                 foundFood.setText("Sim");
+                slot++;
             }
         }
 
-        if (winnerBots.size() < 2) {
+        if (slot <= 2) {
             for (Bot bot : bots) {
                 boolean isWinner = false;
                 for (Bot winnerBot : winnerBots) {
@@ -73,13 +75,13 @@ public class FinalScreenController {
                     }
                 }
                 if (!isWinner) {
-                    Label botType = (Label) rankGridPane.lookup("#botTypeLabel" + (bots.indexOf(bot) + 1 + winnerBots.size()));
-                    VBox botColorVBox = (VBox) rankGridPane.lookup("#botColorVBox" + (bots.indexOf(bot) + 1 + winnerBots.size()));
-                    Label botColor = (Label) rankGridPane.lookup("#botColorLabel" + (bots.indexOf(bot) + 1 + winnerBots.size()));
-                    Label validMoves = (Label) rankGridPane.lookup("#validMovesLabel" + (bots.indexOf(bot) + 1 + winnerBots.size()));
-                    Label invalidMoves = (Label) rankGridPane.lookup("#invalidMovesLabel" + (bots.indexOf(bot) + 1 + winnerBots.size()));
-                    Label rounds = (Label) rankGridPane.lookup("#roundsLabel" + (bots.indexOf(bot) + 1 + winnerBots.size()));
-                    Label foundFood = (Label) rankGridPane.lookup("#foundFoodLabel" + (bots.indexOf(bot) + 1 + winnerBots.size()));
+                    Label botType = (Label) rankGridPane.lookup("#botTypeLabel" + (slot));
+                    VBox botColorVBox = (VBox) rankGridPane.lookup("#botColorVBox" +(slot));
+                    Label botColor = (Label) rankGridPane.lookup("#botColorLabel" + (slot));
+                    Label validMoves = (Label) rankGridPane.lookup("#validMovesLabel" + (slot));
+                    Label invalidMoves = (Label) rankGridPane.lookup("#invalidMovesLabel" + (slot));
+                    Label rounds = (Label) rankGridPane.lookup("#roundsLabel" + (slot));
+                    Label foundFood = (Label) rankGridPane.lookup("#foundFoodLabel" + (slot));
                     switch (bot) {
                         case RandomBot randomBot ->
                             botType.setText("Aleatório");

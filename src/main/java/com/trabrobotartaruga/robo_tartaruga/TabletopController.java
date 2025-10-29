@@ -48,6 +48,8 @@ public class TabletopController {
     private Map map;
     private final Semaphore semaphore = new Semaphore(0);
     private Bot lastPlayedBot;
+    private int currentTurn = 0;
+    private int lastTurn = 0;
 
     @FXML
     GridPane gameGrid;
@@ -63,74 +65,110 @@ public class TabletopController {
 
     private void play() {
         new Thread(() -> {
-            while (!map.isGameOver()) {
-                Platform.runLater(() -> map.updateBots());
-                for (Bot bot : map.getBots()) {
-                    if ((bot.equals(lastPlayedBot) && map.getBots().size() > 1) || !bot.isActive()) {
-                        continue;
-                    }
-
-                    boolean goodMove = true;
-
-                    try {
-                        Thread.sleep(1000);
-                        switch (bot) {
-                            case RandomBot randomBot ->
-                                randomBot.move("");
-                            case SmartBot smartBot ->
-                                smartBot.move(0);
-                            default -> {
-                                move(bot);
-                                pause();
+            try {
+                while (!map.isGameOver()) {
+                    currentTurn++;
+                    for (Bot bot : map.getBots()) {
+                        if (map.isGameOver()) {
+                            break;
+                        }
+                        boolean othersInacive = true;
+                        for (Bot botCheck : map.getBots()) {
+                            if (!botCheck.equals(bot)) {
+                                if (botCheck.isActive()) {
+                                    othersInacive = false;
+                                }
                             }
                         }
-                    } catch (InvalidMoveException e) {
-                        System.out.println(e);
-                        bot.setInvalidMoves(bot.getInvalidMoves() + 1);
-                        goodMove = false;
-                    } catch (InvalidInputException | InterruptedException e) {
-                    }
 
-                    lastPlayedBot = bot;
+                        if (bot.equals(lastPlayedBot) && lastTurn == currentTurn) {
+                            continue;
+                        }
 
-                    Platform.runLater(() -> bot.setRounds(bot.getRounds() + 1));
-                    if (goodMove) {
-                        Platform.runLater(() -> bot.setValidMoves(bot.getValidMoves() + 1));
-                    }
-                    Platform.runLater(() -> {
-                        map.updateBots();
-                        showBots();
-                    });
+                        if (((bot.equals(lastPlayedBot) && !othersInacive) && map.getBots().size() > 1) || !bot.isActive()) {
+                            continue;
+                        }
 
-                    if (!map.getObstacles().isEmpty()) {
+                        boolean goodMove = true;
+
                         try {
-                            Thread.sleep(500);
-                        } catch (InterruptedException ex) {
+                            Thread.sleep(600);
+
+                            switch (bot) {
+                                case RandomBot randomBot ->
+                                    randomBot.move("");
+                                case SmartBot smartBot ->
+                                    smartBot.move(0);
+                                default -> {
+                                    move(bot);
+                                    pause();
+                                }
+                            }
+                        } catch (InvalidMoveException e) {
+                            bot.setInvalidMoves(bot.getInvalidMoves() + 1);
+                            goodMove = false;
+                        } catch (InvalidInputException | InterruptedException e) {
+                            goodMove = false;
                         }
 
-                        Platform.runLater(() -> {
-                            try {
-                                map.obstacleAction();
-                            } catch (InvalidMoveException | InvalidInputException e) {
-                                e.printStackTrace();
-                            }
-                        });
+                        lastPlayedBot = bot;
+                        if (goodMove) {
+                            bot.setValidMoves(bot.getValidMoves() + 1);
+                        }
+                        bot.setRounds(bot.getRounds() + 1);
 
-                        Platform.runLater(() -> {
+                        syncUpdate(() -> {
                             map.updateBots();
                             showBots();
                         });
+
+                        if (map.isGameOver()) {
+                            break;
+                        }
+
+                        if (!map.getObstacles().isEmpty()) {
+                            try {
+                                Thread.sleep(300);
+                            } catch (InterruptedException ignored) {
+                            }
+
+                            syncUpdate(() -> {
+                                try {
+                                    map.obstacleAction();
+                                    map.updateBots();
+                                    showBots();
+                                } catch (InvalidMoveException | InvalidInputException e) {
+                                    e.printStackTrace();
+                                }
+                            });
+                        }
+                        lastTurn = currentTurn;
                     }
                 }
-            }
-            if (map.isGameOver()) {
-                try {
-                    Thread.sleep(1500);
-                } catch (InterruptedException e) {
-                }
+
+                Thread.sleep(1000);
                 Platform.runLater(() -> goToFinalScreen(map.getBots(), map.getWinnerBots()));
+
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
             }
         }).start();
+    }
+
+    private void syncUpdate(Runnable action) {
+        java.util.concurrent.CountDownLatch latch = new java.util.concurrent.CountDownLatch(1);
+        Platform.runLater(() -> {
+            try {
+                action.run();
+            } finally {
+                latch.countDown();
+            }
+        });
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     private void move(Bot bot) {
@@ -265,10 +303,10 @@ public class TabletopController {
                                                 "/com/trabrobotartaruga/robo_tartaruga/assets/random_bot.png"),
                                         70, 70, false, false));
                                 dropShadow.setColor(Color.valueOf(randomBot.getColor()));
-                                image.setEffect(dropShadow);
                                 if (!randomBot.isActive()) {
-                                    image.setEffect(monochrome);
+                                    dropShadow.setInput(monochrome);
                                 }
+                                image.setEffect(dropShadow);
                                 gridCell.getChildren().add(image);
                             }
                             case SmartBot smartBot -> {
@@ -277,10 +315,10 @@ public class TabletopController {
                                                 "/com/trabrobotartaruga/robo_tartaruga/assets/smart_bot.png"),
                                         55, 55, false, false));
                                 dropShadow.setColor(Color.valueOf(smartBot.getColor()));
-                                image.setEffect(dropShadow);
                                 if (!smartBot.isActive()) {
-                                    image.setEffect(monochrome);
+                                    dropShadow.setInput(monochrome);
                                 }
+                                image.setEffect(dropShadow);
                                 gridCell.getChildren().add(image);
                             }
                             case Bot bot -> {

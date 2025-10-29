@@ -148,6 +148,16 @@ public class Map {
             }
         }
     }
+    
+    public boolean hasAnotherActiveBot(Bot current) {
+        for (Bot b : bots) {
+            if (!b.equals(current) && b.isActive()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public boolean isGameOver() {
         if (oneWinner && foodFound) {

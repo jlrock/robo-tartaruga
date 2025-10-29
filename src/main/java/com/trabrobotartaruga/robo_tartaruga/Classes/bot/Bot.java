@@ -50,6 +50,19 @@ public class Bot {
 
     public void move(String move) throws InvalidMoveException, InvalidInputException {
         switch (move.toLowerCase()) {
+            case "up" ->
+                this.lastMove = 1;
+            case "down" ->
+                this.lastMove = 2;
+            case "left" ->
+                this.lastMove = 3;
+            case "right" ->
+                this.lastMove = 4;
+            default ->
+                throw new InvalidInputException();
+        }
+        
+        switch (move.toLowerCase()) {
             case "up" -> {
                 if (posY < mapY - 1) {
                     moveUp();
@@ -91,6 +104,8 @@ public class Bot {
     }
 
     public void move(int i) throws InvalidMoveException, InvalidInputException {
+        this.lastMove = i;
+
         switch (i) {
             case 1 -> {
                 if (posY < mapY - 1) {

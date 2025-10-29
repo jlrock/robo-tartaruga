@@ -13,6 +13,14 @@ public class SmartBot extends Bot {
         lastGoodMove = true;
     }
 
+    public boolean isLastGoodMove() {
+        return lastGoodMove;
+    }
+
+    public void setLastGoodMove(boolean lastGoodMove) {
+        this.lastGoodMove = lastGoodMove;
+    }
+
     private int newMove() {
         int newMove;
 
@@ -26,7 +34,9 @@ public class SmartBot extends Bot {
     @Override
     public void move(int motion) throws InvalidMoveException, InvalidInputException {
         boolean moved = false;
-        motion = newMove();
+        if (motion == 0) {
+            motion = newMove();
+        }
 
         if (lastGoodMove) {
             try {
