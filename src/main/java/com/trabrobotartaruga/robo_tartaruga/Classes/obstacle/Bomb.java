@@ -24,14 +24,7 @@ public class Bomb extends Obstacle {
                 if (object instanceof Bot bot) {
                     bot.setActive(false);
                     exploded = true;
-                    switch (bot) {
-                        case SmartBot smartBot ->
-                            tabletopController.createLogLabel("Robô inteligente explodiu.");
-                        case RandomBot randomBot ->
-                            tabletopController.createLogLabel("Robô aleatório explodiu.");
-                        case Bot currenBot ->
-                            tabletopController.createLogLabel("Robô normal explodiu.");
-                    }
+                    tabletopController.createLogLabel(bot.getType() + " explodiu.");
                 }
             }
         }

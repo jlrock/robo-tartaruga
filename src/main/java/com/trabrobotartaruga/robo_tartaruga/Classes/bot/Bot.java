@@ -6,6 +6,7 @@ import com.trabrobotartaruga.robo_tartaruga.exceptions.InvalidMoveException;
 public class Bot {
 
     protected final String color;
+    protected String type;
     protected int posX;
     protected int posY;
     protected int lastMove;
@@ -18,6 +19,7 @@ public class Bot {
 
     public Bot(String color, int mapX, int mapY) {
         this.color = color;
+        this.type = "Robô normal";
         this.posX = 0;
         this.posY = 0;
         this.mapX = mapX;
@@ -196,5 +198,9 @@ public class Bot {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public String getType() {
+        return type;
     }
 }

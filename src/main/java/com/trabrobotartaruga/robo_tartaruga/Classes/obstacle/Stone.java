@@ -31,14 +31,7 @@ public class Stone extends Obstacle {
                 if (bot instanceof SmartBot smartBot) {
                     smartBot.setLastGoodMove(false);
                 }
-                switch (bot) {
-                    case SmartBot smartBot ->
-                        tabletopController.createLogLabel("Robô inteligente bateu na pedra.");
-                    case RandomBot randomBot ->
-                        tabletopController.createLogLabel("Robô aleatório bateu na pedra.");
-                    case Bot currenBot ->
-                        tabletopController.createLogLabel("Robô normal bateu na pedra.");
-                }
+                tabletopController.createLogLabel(bot.getType() + " bateu na pedra.");
             }
         }
     }
