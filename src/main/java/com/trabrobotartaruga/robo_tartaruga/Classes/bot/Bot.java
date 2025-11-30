@@ -6,6 +6,7 @@ import com.trabrobotartaruga.robo_tartaruga.exceptions.InvalidMoveException;
 public class Bot {
 
     protected final String color;
+    protected String type;
     protected int posX;
     protected int posY;
     protected int lastMove;
@@ -18,6 +19,7 @@ public class Bot {
 
     public Bot(String color, int mapX, int mapY) {
         this.color = color;
+        this.type = "Robô normal";
         this.posX = 0;
         this.posY = 0;
         this.mapX = mapX;
@@ -70,7 +72,6 @@ public class Bot {
                     posY = mapY - 1;
                     throw new InvalidMoveException(color, "cima");
                 }
-                break;
             }
             case "down" -> {
                 if (posY > 0) {
@@ -78,7 +79,6 @@ public class Bot {
                 } else {
                     throw new InvalidMoveException(color, "baixo");
                 }
-                break;
             }
             case "right" -> {
                 if (posX < mapX - 1) {
@@ -86,7 +86,6 @@ public class Bot {
                 } else {
                     throw new InvalidMoveException(color, "direita");
                 }
-                break;
             }
             case "left" -> {
                 if (posX > 0) {
@@ -94,7 +93,6 @@ public class Bot {
                 } else {
                     throw new InvalidMoveException(color, "esquerda");
                 }
-                break;
             }
             default -> {
                 throw new InvalidInputException();
@@ -113,7 +111,7 @@ public class Bot {
                     posY = mapY - 1;
                     throw new InvalidMoveException(color, "cima");
                 }
-                break;
+                
             }
 
             case 2 -> {
@@ -122,7 +120,7 @@ public class Bot {
                 } else {
                     throw new InvalidMoveException(color, "baixo");
                 }
-                break;
+                
             }
             case 3 -> {
                 if (posX > 0) {
@@ -130,7 +128,7 @@ public class Bot {
                 } else {
                     throw new InvalidMoveException(color, "esquerda");
                 }
-                break;
+                
             }
             case 4 -> {
                 if (posX < mapX - 1) {
@@ -138,7 +136,7 @@ public class Bot {
                 } else {
                     throw new InvalidMoveException(color, "direita");
                 }
-                break;
+                
             }
             default -> {
                 throw new InvalidInputException();
@@ -200,5 +198,9 @@ public class Bot {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public String getType() {
+        return type;
     }
 }
